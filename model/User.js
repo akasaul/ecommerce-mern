@@ -34,22 +34,17 @@ const userSchema = new mongoose.Schema({
             required: [true, 'Please Insert Id'],
             ref: 'Product',
         }
-    ]
-})
-
-// fire a function before doc saved to db
-userSchema.pre('save',  async function (next) {
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
-    next(); 
+    ],
+    token: String
 })
 
 //login user
 userSchema.statics.login = async function (email, password) {
-    const user = await this.findOne({email: email});
-    
+    const user = await this.findOne({ email });
+
     if(user) {
-        if(await bcrypt.compare(password, user.password)) {
+        let match = await bcrypt.compare(password, user.password); 
+        if(match) {
             return user;
         } 
         throw new Error('password not correct');
