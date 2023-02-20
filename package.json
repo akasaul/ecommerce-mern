@@ -1,0 +1,20 @@
+{
+  "name": "ecommerce-mern",
+  "version": "1.0.0",
+  "description": "MERN STACK ECOMMERCE APP WITH REDUX AND TAILWIND",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akasaul/ecommerce-mern.git"
+  },
+  "keywords": [],
+  "author": "Nikodimos Jemaneh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akasaul/ecommerce-mern/issues"
+  },
+  "homepage": "https://github.com/akasaul/ecommerce-mern#readme"
+}
