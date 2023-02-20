@@ -3,9 +3,10 @@ import './App.css';
 function App() {
   return (
     <div>
-      <h1 className=''>
+      <p className='light-text'>
       Love react
-      </h1>
+      </p>
+      <input placeholder='input'className='input light-text' />
     </div>
   );
 }

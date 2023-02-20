@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+.light-text {
+    @apply text-sm font-light text-fill;
+}
