@@ -16,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/akasaul/ecommerce-mern/issues"
   },
-  "homepage": "https://github.com/akasaul/ecommerce-mern#readme"
+  "homepage": "https://github.com/akasaul/ecommerce-mern#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "express-validator": "^6.15.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.9.2"
+  }
 }
