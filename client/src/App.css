@@ -1,5 +1,14 @@
 .input {
     outline: 1px solid #C9C9C9;
-    height: 50px;
+    height: 45px;
     padding-inline: 10px;
+}
+
+.input:focus {
+    outline: 1px solid #013d29;    
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
 }

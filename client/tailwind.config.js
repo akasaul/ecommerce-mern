@@ -22,10 +22,12 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#ff7d9d',
-        accent: '#fff',
-        fill: '#161616',
-        orange: '#FCB322'
+        primary: '#161616',
+        accent: '#f5f7f9',
+        fill: '#2B2928',
+        orange: '#FCB322',
+        white: '#fff',
+        secondary: '#727272'
       },
     },
   },

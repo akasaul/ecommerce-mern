@@ -1,13 +1,19 @@
+import {Routes, Route} from 'react-router-dom'
+import Home from './pages/Home';
 import './App.css';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+
 
 function App() {
   return (
-    <div>
-      <p className='light-text'>
-      Love react
-      </p>
-      <input placeholder='input'className='input light-text' />
-    </div>
+    <>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
+      </Routes>
+    </>
   );
 }
 
