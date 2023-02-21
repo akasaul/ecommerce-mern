@@ -8,11 +8,10 @@ module.exports = asyncHandler (
 
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         
-        const token = req.headers.authorization.split(' ')[2];
+        const token = req.headers.authorization.split(' ')[1];
 
         await jwt.verify(token, process.env.TOKEN_SECRET, async (err, decoded) => {
             if(err) {
-                res.status(401);
                 throw new Error('Not Authorized');
             }
             req.user = await User.findById(decoded.id);

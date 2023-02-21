@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../app/features/user/userSlice';
 import { toast } from 'react-toastify'
+import Breadcrumb from '../components/Breadcrumb';
 
 const Signup = () => {
 
@@ -62,10 +63,8 @@ const Signup = () => {
         <Appbar />
         <Navbar />
 
-        <div className='bg-secondary text-white text-center p-2 mb-6'>
-            {path.map((link, index) => (index === 0 ? <a href='/' key={index}>Home</a>  : <a href={`/${link}`} key={index}>{' > ' + link}</a> ))}
-        </div>
-
+        <Breadcrumb path={path} />
+        
         <form className='grid max-w-[400px] mx-auto gap-4 px-4 md:px-0' onSubmit={onSubmit}> 
             
             <h2 className='mb-3'>Already a client?  <a href='/login' className='underline text-primary'>Login!</a></h2>
