@@ -1,5 +1,7 @@
+const Product = require('../model/Product');
+
 const addProduct = (req, res, next) => {
-    res.send('add');
+    res.send('add product');
     next();
 }
 
