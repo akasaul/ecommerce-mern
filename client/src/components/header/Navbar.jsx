@@ -4,7 +4,8 @@ import {MdShoppingBasket, MdExpandMore, MdSearch, MdAccountCircle, MdOutlineShop
 
 const Navbar = () => {
     const [show, setShow] = useState(false);
-  return (
+
+    return (
     <div className='max-w-[1200px] mx-auto h-16 flex justify-between px-4 items-center'>
         <h2 className='flex flex-[0.2] items-center gap-3 text-md text-primary'>
             <MdShoppingBasket />

@@ -17,7 +17,7 @@ app.use((error, req, res, next) => {
     if(!error.statusCode) {
         error.statusCode = 500;
     }
-    res.status(error.statusCode).json({msg: error.message})
+    res.json({msg: error.message})
 })
 
 // connect mongo db

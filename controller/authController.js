@@ -31,6 +31,7 @@ const signUp = asyncHandler (
         res.status(400);
         throw new Error('Please password mismatch');
     }
+    
 
     if(!errors.isEmpty()) {
         res.status(400);
@@ -43,7 +44,6 @@ const signUp = asyncHandler (
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
-
     try {
         const token = createToken(email);
         user = await User.create({name, email, password: hashedPassword, token});
@@ -51,8 +51,10 @@ const signUp = asyncHandler (
         res.json({name: user.name, email: user.email, token});
     } catch (err) {
         if(err.code === 11000) {
+            res.status(400);
             throw new Error(err.keyValue.email + ' already exists');
         }
+        res.status(400);
         throw new Error(err.message);
     }
 

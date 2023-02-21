@@ -2,6 +2,8 @@ import React from 'react'
 import { Appbar, Navbar } from '../components/header'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signup } from '../app/features/user/userSlice';
 
 const Signup = () => {
 
@@ -26,8 +28,11 @@ const Signup = () => {
         })
     }
 
+    const dispatch = useDispatch();
+
     const onSubmit = (e) => {
         e.preventDefault();
+        dispatch(signup(formData));
     }
 
   return (
@@ -45,23 +50,23 @@ const Signup = () => {
 
             <div className='flex flex-col gap-2'>
                 <label className='text-xs '>Name</label>
-                <input className='input rounded-sm' name='name' onChange={onChange} />
+                <input className='input rounded-sm' name='name' value={name} onChange={onChange} />
             </div>
 
             <div className='flex flex-col gap-2'>
                 <label className='text-xs '>Email</label>
-                <input className='input rounded-sm' name='email' onChange={onChange} />
+                <input className='input rounded-sm' name='email' value={email} onChange={onChange} />
             </div>
 
             <div className='flex flex-col gap-2 relative'>
                 <label className='text-xs '>Password</label>
-                <input className='input rounded-sm' type={!showPassword ? 'password' : 'text'} name='password' onChange={onChange} />
+                <input className='input rounded-sm' type={!showPassword ? 'password' : 'text'} name='password' value={password} onChange={onChange} />
                 <button className='absolute bottom-0 right-[10px] text-fill hover:text-[#000]' onMouseDown={() => setShowPassword(true)} onMouseUp={() => setShowPassword(false)}>SEE</button>
             </div>
 
             <div className='flex flex-col gap-2 relative'>
                 <label className='text-xs '>ConfirmPassword</label>
-                <input className='input rounded-sm' type={!showConfirmPassword ? 'password' : 'text'} name='password2' onChange={onChange} />
+                <input className='input rounded-sm' type={!showConfirmPassword ? 'password' : 'text'} value={password2} name='password2' onChange={onChange} />
                 <button className='absolute bottom-0 right-[10px] text-fill hover:text-[#000]' onMouseDown={() => setShowConfirmPassword(true)} onMouseUp={() => setShowConfirmPassword(false)}>SEE</button>
             </div>
 
