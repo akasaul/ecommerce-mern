@@ -45,8 +45,9 @@ const signUp = asyncHandler (
     const hashedPassword = await bcrypt.hash(password, salt);
 
     try {
-        const token = createToken(email);
         user = await User.create({name, email, password: hashedPassword, token});
+        const token = createToken(user._id);
+        await user.save();
         res.cookie('gullitjwt', token, {httpOnly: true});
         res.json({name: user.name, email: user.email, token});
     } catch (err) {
@@ -84,14 +85,14 @@ const logIn = asyncHandler (
     let user;
 
     try {
-        const token = createToken(email);
+
         user = await User.login(email, password);
+        const token = createToken(user._id);
+        await user.save();
         res.cookie('gullitjwt', token, {httpOnly: true});
         res.json({name: user.name, email: user.email, token: user.token});
     } catch (err) {
-        if(err.code === 11000) {
-            throw new Error(err.keyValue.email + ' already exists');
-        }
+        res.status(400);
         throw new Error(err.message);
     }   
 });

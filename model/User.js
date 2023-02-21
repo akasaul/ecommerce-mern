@@ -39,12 +39,14 @@ const userSchema = new mongoose.Schema({
 })
 
 //login user
-userSchema.statics.login = async function (email, password) {
+userSchema.statics.login = async function (email, password, token) {
     const user = await this.findOne({ email });
 
     if(user) {
         let match = await bcrypt.compare(password, user.password); 
         if(match) {
+            user.token = token;
+            user.save();
             return user;
         } 
         throw new Error('password not correct');
