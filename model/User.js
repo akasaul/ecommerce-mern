@@ -39,13 +39,13 @@ const userSchema = new mongoose.Schema({
 })
 
 //login user
-userSchema.statics.login = async function (email, password, token) {
+userSchema.statics.login = async function (email, password, createToken) {
     const user = await this.findOne({ email });
 
     if(user) {
         let match = await bcrypt.compare(password, user.password); 
         if(match) {
-            user.token = token;
+            user.token = createToken(user._id);
             user.save();
             return user;
         } 

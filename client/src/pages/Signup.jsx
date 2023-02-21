@@ -1,9 +1,10 @@
 import React from 'react'
 import { Appbar, Navbar } from '../components/header'
-import { useState } from 'react'
-import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../app/features/user/userSlice';
+import { toast } from 'react-toastify'
 
 const Signup = () => {
 
@@ -30,9 +31,30 @@ const Signup = () => {
 
     const dispatch = useDispatch();
 
+    const { isLoading, isError, message, isSuccess }  = useSelector(state => state.user)
+
     const onSubmit = (e) => {
         e.preventDefault();
         dispatch(signup(formData));
+    }
+
+     // Toast and Spinner
+     useEffect(() => {
+        if(isError) {
+            toast.error(message);
+        }
+
+        if(isSuccess) {
+            toast.success('Successfully Signed up');
+        }
+
+    }, [isError, isSuccess]);
+
+    const navigate = useNavigate();
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        navigate('/login')
     }
 
   return (
@@ -44,7 +66,7 @@ const Signup = () => {
             {path.map((link, index) => (index === 0 ? <a href='/' key={index}>Home</a>  : <a href={`/${link}`} key={index}>{' > ' + link}</a> ))}
         </div>
 
-        <form className='grid max-w-[400px] mx-auto gap-4' onSubmit={onSubmit}> 
+        <form className='grid max-w-[400px] mx-auto gap-4 px-4 md:px-0' onSubmit={onSubmit}> 
             
             <h2 className='mb-3'>Already a client?  <a href='/login' className='underline text-primary'>Login!</a></h2>
 
@@ -71,12 +93,12 @@ const Signup = () => {
             </div>
 
             <button className='bg-orange py-3 mt-3' type='submit'>
-                Sign up
+                Sign up {isLoading && '...'}
             </button>
 
             <h2 className='mb-3'>Already a client? </h2>
 
-            <button className='bg-white border-primary border mb-5 py-3 text-primary mt-3'>
+            <button onClick={handleClick} className='bg-white border-primary border mb-5 py-3 text-primary mt-3'>
                 Log in
             </button>            
 

@@ -45,8 +45,9 @@ const signUp = asyncHandler (
     const hashedPassword = await bcrypt.hash(password, salt);
 
     try {
-        user = await User.create({name, email, password: hashedPassword, token});
+        user = await User.create({name, email, password: hashedPassword});
         const token = createToken(user._id);
+        user.token = token;
         await user.save();
         res.cookie('gullitjwt', token, {httpOnly: true});
         res.json({name: user.name, email: user.email, token});
@@ -85,11 +86,8 @@ const logIn = asyncHandler (
     let user;
 
     try {
-
-        user = await User.login(email, password);
-        const token = createToken(user._id);
-        await user.save();
-        res.cookie('gullitjwt', token, {httpOnly: true});
+        user = await User.login(email, password, createToken);
+        res.cookie('gullitjwt',  user.token, {httpOnly: true});
         res.json({name: user.name, email: user.email, token: user.token});
     } catch (err) {
         res.status(400);

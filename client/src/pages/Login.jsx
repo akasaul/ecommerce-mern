@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Appbar, Navbar } from '../components/header'
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../app/features/user/userSlice';
+import { toast } from 'react-toastify'
 
 const Login = () => {
 
@@ -28,9 +29,30 @@ const Login = () => {
 
     const dispatch = useDispatch();
 
+    const { isLoading, isError, message, isSuccess }  = useSelector(state => state.user)
+
     const onSubmit = (e) => {
         e.preventDefault();
         dispatch(login(formData));
+    }
+
+    // Toast and Spinner
+    useEffect(() => {
+        if(isError) {
+            toast.error(message);
+        }
+
+        if(isSuccess) {
+            toast.success('Successfully Logged In');
+        }
+
+    }, [isError, isSuccess]);
+
+    const navigate = useNavigate();
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        navigate('/signup')
     }
 
   return (
@@ -42,7 +64,7 @@ const Login = () => {
             {path.map((link, index) => (index === 0 ? <a href='/' key={index}>Home</a>  : <a href={`/${link}`} key={index}>{' > ' + link}</a> ))}
         </div>
 
-        <form className='grid max-w-[400px] mx-auto gap-4' onSubmit={onSubmit}> 
+        <form className='grid max-w-[400px] mx-auto gap-4 px-4 md:px-0' onSubmit={onSubmit}> 
             
             <h2 className='mb-3'>New Here?  <a href='/signup' className='underline text-primary'>Signup!</a></h2>
 
@@ -57,13 +79,13 @@ const Login = () => {
                 <button className='absolute bottom-0 right-[10px] text-fill hover:text-[#000]' onMouseDown={() => setShowPassword(true)} onMouseUp={() => setShowPassword(false)}>SEE</button>
             </div>
 
-            <button className='bg-orange py-3 mt-3' type='submit'>
-                Log in
+            <button className='bg-orange py-3 mt-3 relative' type='submit'>
+                Log in {isLoading && '...'}
             </button>
 
             <h2 className='mb-3'>New Here? </h2>
 
-            <button className='bg-white border-primary border mb-5 py-3 text-primary mt-3'>
+            <button onClick={handleClick} className='bg-white border-primary border mb-5 py-3 text-primary mt-3'>
                 Sign up
             </button>            
 
