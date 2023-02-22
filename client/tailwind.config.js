@@ -28,7 +28,7 @@ module.exports = {
         orange: '#FCB322',
         white: '#fff',
         secondary: '#727272'
-      },
+      }
     },
   },
   plugins: [],

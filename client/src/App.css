@@ -8,6 +8,13 @@
     outline: 1px solid #013d29;    
 }
 
+
+@media (min-width: 550px) {
+    .grid-layout { 
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
