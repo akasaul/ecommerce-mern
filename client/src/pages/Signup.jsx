@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Appbar, Navbar } from '../components/header'
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -58,6 +58,12 @@ const Signup = () => {
         navigate('/login')
     }
 
+    // prevent default 
+    const onClick = (e) => {
+        e.preventDefault();
+    }
+
+    
   return (
     <>
         <Appbar />
@@ -82,13 +88,13 @@ const Signup = () => {
             <div className='flex flex-col gap-2 relative'>
                 <label className='text-xs '>Password</label>
                 <input className='input rounded-sm' type={!showPassword ? 'password' : 'text'} name='password' value={password} onChange={onChange} />
-                <button className='absolute bottom-0 right-[10px] text-fill hover:text-[#000]' onMouseDown={() => setShowPassword(true)} onMouseUp={() => setShowPassword(false)}>SEE</button>
+                <button onClick={onClick} className='absolute bottom-0 right-[10px] text-fill hover:text-[#000]' onMouseDown={() => setShowPassword(true)} onMouseUp={() => setShowPassword(false)}>SEE</button>
             </div>
 
             <div className='flex flex-col gap-2 relative'>
                 <label className='text-xs '>ConfirmPassword</label>
                 <input className='input rounded-sm' type={!showConfirmPassword ? 'password' : 'text'} value={password2} name='password2' onChange={onChange} />
-                <button className='absolute bottom-0 right-[10px] text-fill hover:text-[#000]' onMouseDown={() => setShowConfirmPassword(true)} onMouseUp={() => setShowConfirmPassword(false)}>SEE</button>
+                <button onClick={onClick} className='absolute bottom-0 right-[10px] text-fill hover:text-[#000]' onMouseDown={() => setShowConfirmPassword(true)} onMouseUp={() => setShowConfirmPassword(false)}>SEE</button>
             </div>
 
             <button className='bg-orange py-3 mt-3' type='submit'>

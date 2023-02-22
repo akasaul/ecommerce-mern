@@ -17,8 +17,10 @@ export const getProducts = createAsyncThunk(
     'product/getProducts',
     async (thunkAPI) => {
         try {
-            return await productAPI.getProducts(API_URL); 
+            const data =  await productAPI.getProducts(API_URL);
+            return data; 
         } catch(error) {
+            console.log(error);
             const message = error.response.data.msg || 'Failed to get the product';
             return thunkAPI.rejectWithValue(message);
         }
@@ -30,10 +32,9 @@ export const addProduct = createAsyncThunk(
     'product/addProduct',
     async(productData, thunkAPI) => {
         try {
-            const token = thunkAPI.getState().user.user.token;
+            const token = thunkAPI.getState().user.user?.token;
             return await productAPI.addProduct(productData, token, API_URL + '/add-product');
         } catch(error) {
-            console.log(error);
             const message = error.response.data.msg || 'Failed to add the product';
             return thunkAPI.rejectWithValue(message);
         }
@@ -88,12 +89,14 @@ const productSlice = createSlice({
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
-                console.log(action.payload)
             }) 
 
             // get Product states 
             .addCase(getProduct.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
+                state.isSuccess = false;
+                state.message = '';
             }) 
             .addCase(getProduct.fulfilled, (state, action) => {
                 state.isLoading = false;

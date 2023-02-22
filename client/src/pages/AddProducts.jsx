@@ -27,8 +27,6 @@ const AddProduct = () => {
             ...formData, 
             [e.target.name]: e.target.value
         })
-
-        console.log(formData);
     }
     
     const {name, desc, price, qty, category, imageUrl} = formData;
@@ -48,11 +46,14 @@ const AddProduct = () => {
     useEffect(() => {
         if(isError) {
             toast.error(message);
+            dispatch(reset());
         }
 
         if(isSuccess) {
-            toast.success('Added the product successfully   ')
+            toast.success('Added the product successfully')
+            dispatch(reset());
         }
+        
     }, [isError, isSuccess])
     
 
@@ -96,11 +97,11 @@ const AddProduct = () => {
                 <div className='flex flex-col gap-2'>
                     <label className='text-xs gap-2 text-secondary cursor-pointer hover:text-[#000] items-center flex'>Category <MdCategory /></label>
                     <select
-                    name='category'
-                    className='input'
-                    onChange={onChange}
-                    value={category}
-                >
+                        name='category'
+                        className='input'
+                        onChange={onChange}
+                        value={category}
+                    >
                     <option value='food'>Food</option>
                     <option value='cloth'>Cloth</option>
                     <option value='electronics'>Electronics</option>

@@ -6,6 +6,7 @@ const Navbar = () => {
     const [show, setShow] = useState(false);
 
     return (
+        
     <div className='max-w-[1200px] mx-auto h-16 flex justify-between px-4 items-center'>
         <h2 className='flex flex-[0.2] items-center gap-3 text-md text-primary'>
             <MdShoppingBasket />
@@ -47,7 +48,7 @@ const Navbar = () => {
             <MdMenu />
         </button>
 
-        <div className={`absolute bg-white flex flex-col gap-2 px-3 w-[250px] md:hidden top-0 bottom-0 py-5 z-10 right-0 translate-x-[500px] transition-transform duration-[0.5s] ${show && 'translate-x-[0px]'}`}>
+        <div className={`absolute bg-white flex flex-col gap-2 px-3 w-[250px] md:hidden top-0 bottom-0 py-5 z-10 right-0 translate-x-[500px] transition-transform duration-[0.5s] ${show && 'translate-x-[10px]'}`}>
             
             <button className='self-start' onClick={() => setShow(false)}>
                 <MdClose /> 

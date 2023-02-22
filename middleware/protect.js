@@ -12,6 +12,7 @@ module.exports = asyncHandler (
 
         await jwt.verify(token, process.env.TOKEN_SECRET, async (err, decoded) => {
             if(err) {
+                res.status(401);
                 throw new Error('Not Authorized');
             }
             req.user = await User.findById(decoded.id);
