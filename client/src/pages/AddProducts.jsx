@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { MdTextFormat, MdAttachMoney, MdProductionQuantityLimits, MdCategory, MdLink, MdCreate, MdDescription } from 'react-icons/md'
-import { useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Breadcrumb from '../components/Breadcrumb'
 import {Appbar, Navbar} from '../components/header'
 import { useState } from 'react'
@@ -52,10 +52,13 @@ const AddProduct = () => {
         if(isSuccess) {
             toast.success('Added the product successfully')
             dispatch(reset());
+            navigate('/');
         }
         
     }, [isError, isSuccess])
     
+
+    const navigate = useNavigate();
 
   return (
     <>

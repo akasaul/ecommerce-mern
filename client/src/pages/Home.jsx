@@ -16,25 +16,24 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(reset());
-    if(isLoading) {
-      return (
-        <Spinner />
-      )
-    }
   }, [])
   
   useEffect(() => {
     dispatch(getProducts());
   }, []);
+
   return (
     <div>
       <Appbar />
       <Navbar />
+       {
+        isLoading && <Spinner />
+       }
       
       <Layout>
         {
-          products.map(({_id, name, description, price, imageUrl}) => (
-            <Card key={_id} name={name} price={price} desc={description} imageUrl={imageUrl} />
+          products.map(({_id, name, description, price, imageUrl, category}) => (
+            <Card key={_id} name={name} id={_id} price={price} category={category} desc={description} imageUrl={imageUrl} />
           ))
         }
       </Layout>

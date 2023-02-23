@@ -3,8 +3,10 @@ import './spinner.css'
 
 function index() {
   return (
-        <div className="lds-dual-ring"></div>
-  )
+    <div className='h-[70vh] w-full grid place-content-center'>
+      <div className="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    )
 }
 
 export default index
