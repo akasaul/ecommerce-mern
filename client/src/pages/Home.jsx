@@ -12,8 +12,6 @@ const Home = () => {
 
   const {products, isError, isSuccess, isLoading, message} = useSelector(state => state.product);
 
-  console.log(products);
-
   useEffect(() => {
     dispatch(reset());
   }, [])

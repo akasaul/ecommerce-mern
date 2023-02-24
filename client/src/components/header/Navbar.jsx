@@ -7,10 +7,10 @@ const Navbar = () => {
 
     return (
         
-    <div className='max-w-[1200px] mx-auto h-16 flex justify-between px-4 items-center'>
+    <div className='max-w-[1200px] border-b border-secondary  mx-auto h-16 flex justify-between px-4 items-center'>
         <h2 className='flex flex-[0.2] items-center gap-3 text-md text-primary'>
             <MdShoppingBasket />
-            Gullit
+            Gebeya
         </h2>
 
         <div className="center flex-[0.4] hidden md:flex items-center gap-4">

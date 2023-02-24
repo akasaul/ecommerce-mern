@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import AddProducts from './pages/AddProducts';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import Product from './pages/Product';
 
 
 
@@ -17,6 +18,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/add-product' element={<AddProducts />} />
+        <Route path='/product/:productId' element={<Product />} />
       </Routes>
       <ToastContainer />
     </>
