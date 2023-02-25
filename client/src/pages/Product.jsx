@@ -3,10 +3,15 @@ import { useLocation } from 'react-router-dom'
 import { Appbar, Navbar } from '../components/header'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProduct, reset } from '../app/features/products/productSlice'
-import { MdAccountCircle, MdAdd, MdImage, MdOutlineAddShoppingCart, MdOutlineVerifiedUser, MdRemove } from 'react-icons/md'
+import { MdAccountCircle, MdAdd, MdDelete, MdEdit, MdImage, MdOutlineAddShoppingCart, MdOutlineVerifiedUser, MdRemove, MdUpdate } from 'react-icons/md'
 import Spinner from '../components/Spinner'
 import {Rating} from 'react-simple-star-rating' 
 import Breadcrumb from '../components/Breadcrumb'
+import { productSelector } from '../app/features/products/productSlice'
+
+const checkMatch = (email, email2) => {
+    return email === email2;
+}
 
 const Product = () => {
 
@@ -22,9 +27,12 @@ const Product = () => {
 
     const [count, setCount] = useState(1);
 
-    const {_id, name, description, price, rating, imageUrl, category, postedBy} = useSelector(state => state.product.product);
-    const {isLoading, isError, isSuccess, message} = useSelector(state => state.product);
     
+    const {_id, name, description, price, rating, imageUrl, category, postedBy} = useSelector(productSelector);
+
+   
+    const {isLoading, isError, isSuccess, message} = useSelector(state => state.product.product);
+    const {user} = useSelector(state => state.user);    
 
 
     const path = pathname.split('/');
@@ -84,18 +92,29 @@ const Product = () => {
                                 <div className='flex items-center gap-2'>
                                     <MdAccountCircle className='text-[2rem]' />
                                     <a href={`/users/${userId}`} className='h-[30px] bg-orange w-[30px] rounded-[50%] font-[500] grid place-content-center'>{userName?.slice(0, 1).toUpperCase()}</a>
-                                    <a href={`/users/${userId}`} className='cursor-pointer hover:underline'>@{userName}</a>
+                                    <button className='cursor-pointer hover:underline'>
+                                        {
+                                            checkMatch(user?.email, postedBy?.email) ?
+                                                'You': 
+                                                '@' +  userName 
+                                        } 
+                                    </button>
                                 </div>
                                 :
                                 <div className='flex items-center gap-2'>
                                     <a href={`/users/${userId}`} className='h-[30px] bg-orange w-[30px] rounded-[50%] grid place-content-center'>u</a>
                                     <a href={`/users/${userId}`} className='cursor-pointer hover:underline'>UnknownUser</a>
-                                </div> 
-                                
+                                </div>    
                         }
                     </article>
                 </div>
-
+                {
+                    checkMatch(user?.email, postedBy?.email) && 
+                    <div className='flex items-around gap-3 my-2'>
+                        <a href={`/product/update/${_id}`} className='flex items-center gap-2'>Edit<MdEdit /></a>
+                        <a href={`/product/delete/${_id}`} className='flex items-center gap-2'>Delete<MdDelete /></a>
+                    </div>
+                }
                 <div>
 
                     <div className='flex items-center justify-between max-w-[300px] bg-orange p-2 rounded-sm'>

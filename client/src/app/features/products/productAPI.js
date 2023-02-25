@@ -20,4 +20,17 @@ const getProduct = async(url) => {
     return data;
 }
 
-export default {getProducts, addProduct, getProduct}
+
+const updateProduct = async(productData, token, url) => {
+    const config = {
+            headers: {
+            Authorization: 'Bearer ' + token
+        }
+    }
+    const { data } = await axios.put(url, productData, config);
+    console.log(data);
+    return data;
+}
+
+
+export default {getProducts, addProduct, getProduct, updateProduct}

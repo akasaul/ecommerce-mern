@@ -9,15 +9,21 @@ const addProduct = asyncHandler(
         const errors = validationResult(req);
         let product;
 
+        // Check for inputs 
+
         if(!name || !price || !desc || !qty || !imageUrl) {
             res.status(400);
             throw new Error('Please Provide the required fields')    
         }
 
+        // Check for errors 
+
         if(!errors.isEmpty()) {
             res.status(400);
             throw new Error(errors.array()[0].msg);
         }
+
+        // create new product 
 
         try {
             product = await Product.create({
@@ -70,57 +76,78 @@ const getProduct = asyncHandler(
 
 const updateProduct = asyncHandler(
     async (req, res) => {
-
+        const {name, desc, price, qty, category, imageUrl} = req.body;
         const {_id : id} = req.user; 
         const { prodId } = req.params;
 
-        const {name, price, desc, imageUrl, category, qty} = req.body;
-
+        console.log(prodId);
         const errors = validationResult(req);
-        let product;
 
-        if(!name || !price || !desc || !imageUrl || !category || !qty) {
-            res.status(400);
-            throw new Error('Provide the required fields')    
+
+        //Check for inputs 
+
+        if(!name || !desc || !price || !qty || !category || !imageUrl) {
+            res.status(422);
+            throw new Error('Please Provide all fields');
         }
 
+        // Check for errors
+        
         if(!errors.isEmpty()) {
             res.status(400);
             throw new Error(errors.array()[0].msg);
         }
 
+        // Updating the product 
+
+        let product;
+        
+        // Search for the product 
+
         try {
-            const productRes = await Product.findById(prodId);
+            product = await Product.findById(prodId);
         } catch(err) {
-            res.status(401);
+            res.status(400);
+            throw new Error('Failed to fetch the product');
+        }
+
+        // Product not Found 
+
+        if(!product) {
             throw new Error('Product Not Found');
         }
 
+        // Authorized or not 
+
+        const { postedBy } = product;
+            
+        if(postedBy.toString() !== id.toString()) {
+            res.status(401);
+            throw new Error('Not Authorized');
+        } 
+
+        // Update the product 
 
         try {
 
-            const { postedBy } = product;
-            
-            if(postedBy.toString() !== id.toString()) {
-                res.status(401);
-                throw new Error('Not Authorized');
-            }
-
             product.name = name;
+            product.description = desc;
             product.price = price;
-            product.desc = desc;
+            product.qty = qty;
+            product.category = category;
             product.imageUrl = imageUrl;
 
-            const newProduct = await product.save();
-            res.status(200).json(newProduct);
+            await product.save();     
             
-        } catch(err) {
-            res.status(500);
-            throw new Error('Failed to update the product');
+            res.status(202);
+
+            res.json(product);
+        } catch (err) {
+            throw new Error(err.message);
         }
-        res.status(200).json(product);
+
     }
-)  
+)
 
 const deleteProduct = asyncHandler(
     async (req, res) => {

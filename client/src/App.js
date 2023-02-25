@@ -7,6 +7,7 @@ import AddProducts from './pages/AddProducts';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Product from './pages/Product';
+import UpdateProduct from './pages/UpdateProduct';
 
 
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/add-product' element={<AddProducts />} />
         <Route path='/products/:productId' element={<Product />} />
+        <Route path='/product/update/:productId' element={<UpdateProduct />} />
       </Routes>
       <ToastContainer />
     </>
