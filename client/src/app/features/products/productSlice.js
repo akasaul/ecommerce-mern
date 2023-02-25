@@ -76,6 +76,23 @@ export const updateProduct = createAsyncThunk(
     }
 )
 
+
+// Delete product 
+export const deleteProduct = createAsyncThunk(
+    'product/deleteProduct',
+    async(id, thunkAPI) => {
+        try {
+            const token = thunkAPI.getState().user.user?.token;
+            return await productAPI.deleteProduct(token, API_URL + '/' + id);
+        } catch(error) {
+            console.log(error);
+            const message = error.response.data.msg || 'Failed to add the product';
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+)
+
+
 const productSlice = createSlice({
     name: 'product',
     initialState,
@@ -151,6 +168,25 @@ const productSlice = createSlice({
                 state.product.isLoading = false;
             }) 
             .addCase(updateProduct.rejected, (state, action) => {
+                state.product.isLoading = false;
+                state.product.isError = true;
+                state.product.message = action.payload;
+            }) 
+
+            // Delete product state 
+
+            .addCase(deleteProduct.pending, (state) => {
+                state.product.isLoading = true;
+                state.product.isError = false;
+                state.product.isSuccess = false;
+                state.product.message = '';
+            }) 
+            .addCase(deleteProduct.fulfilled, (state, action) => {
+                state.product.product =  action.payload;
+                state.product.isSuccess = true;
+                state.product.isLoading = false;
+            }) 
+            .addCase(deleteProduct.rejected, (state, action) => {
                 state.product.isLoading = false;
                 state.product.isError = true;
                 state.product.message = action.payload;

@@ -33,4 +33,18 @@ const updateProduct = async(productData, token, url) => {
 }
 
 
-export default {getProducts, addProduct, getProduct, updateProduct}
+
+const deleteProduct = async(token, url) => {
+    const config = {
+            headers: {
+            Authorization: 'Bearer ' + token
+        }
+    }
+    const { data } = await axios.delete(url, config);
+    console.log(data);
+    return data;
+}
+
+
+
+export default {getProducts, addProduct, getProduct, updateProduct, deleteProduct}

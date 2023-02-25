@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Appbar, Navbar } from '../components/header'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProduct, reset } from '../app/features/products/productSlice'
-import { MdAccountCircle, MdAdd, MdDelete, MdEdit, MdImage, MdOutlineAddShoppingCart, MdOutlineVerifiedUser, MdRemove, MdUpdate } from 'react-icons/md'
+import { getProduct, reset, productSelector, deleteProduct } from '../app/features/products/productSlice'
+import { MdAccountCircle, MdAdd, MdArrowBack, MdClose, MdDelete, MdEdit, MdImage, MdOutlineAddShoppingCart, MdOutlineVerifiedUser, MdRemove, MdUpdate } from 'react-icons/md'
 import Spinner from '../components/Spinner'
 import {Rating} from 'react-simple-star-rating' 
 import Breadcrumb from '../components/Breadcrumb'
-import { productSelector } from '../app/features/products/productSlice'
+import Modal from 'react-modal';
 
 const checkMatch = (email, email2) => {
     return email === email2;
@@ -28,7 +28,7 @@ const Product = () => {
     const [count, setCount] = useState(1);
 
     
-    const {_id, name, description, price, rating, imageUrl, category, postedBy} = useSelector(productSelector);
+    const {_id, name, description, price, imageUrl, category, postedBy} = useSelector(productSelector);
 
    
     const {isLoading, isError, isSuccess, message} = useSelector(state => state.product.product);
@@ -40,6 +40,7 @@ const Product = () => {
     const userId = postedBy?._id;
     const userName = postedBy?.name;
     const email = postedBy?.email;
+    const [modalOpen, setModalOpen] = useState(false);
 
 
     useEffect(() => {
@@ -58,11 +59,16 @@ const Product = () => {
         )
     }
 
+    const removeProduct = (id) => {
+        dispatch(deleteProduct(id));
+    }
+
     return (
     <>
         <Appbar />
         <Navbar />
         <Breadcrumb path={path} />
+
         <section className='flex flex-col gap-6 md:gap-8 mt-5 items-start sm:flex-row max-w-[1000px] mx-auto px-5 '>
             <div style={{
                 flex: 0.5
@@ -102,8 +108,8 @@ const Product = () => {
                                 </div>
                                 :
                                 <div className='flex items-center gap-2'>
-                                    <a href={`/users/${userId}`} className='h-[30px] bg-orange w-[30px] rounded-[50%] grid place-content-center'>u</a>
-                                    <a href={`/users/${userId}`} className='cursor-pointer hover:underline'>UnknownUser</a>
+                                    <a href='#' className='h-[30px] bg-orange w-[30px] rounded-[50%] grid place-content-center'>u</a>
+                                    <a href='#' className='cursor-pointer hover:underline'>UnknownUser</a>
                                 </div>    
                         }
                     </article>
@@ -112,10 +118,30 @@ const Product = () => {
                     checkMatch(user?.email, postedBy?.email) && 
                     <div className='flex items-around gap-3 my-2'>
                         <a href={`/product/update/${_id}`} className='flex items-center gap-2'>Edit<MdEdit /></a>
-                        <a href={`/product/delete/${_id}`} className='flex items-center gap-2'>Delete<MdDelete /></a>
+                        <button  className='flex items-center gap-2' onClick={() => setModalOpen(true)}>Delete<MdDelete/></button>
                     </div>
                 }
                 <div>
+
+                    <Modal
+                        isOpen={modalOpen}
+                        contentLabel='Delete Product'
+                        >
+                            <section className='py-2 border-b mb-5 flex justify-end'>
+                                <button className='hover:bg-secondary h-[30px] rounded-[50%] w-[30px] place-content-center grid hover:text-white' 
+                                onClick={() => setModalOpen(false)}>
+                                    <MdClose />
+                                </button>
+                            </section>
+                        <h1>Are you sure to delete {name}</h1>
+                        
+                        <div className='flex gap-5'>
+                            <button className='flex items-center gap-2 hover:bg-orange p-1' onClick={() => removeProduct(_id)}><MdDelete /> Yes</button>
+                            <button className='flex items-center gap-2 hover:bg-orange p-1' onClick={() => setModalOpen(false)}><MdArrowBack /> No</button>
+                        </div>
+                    
+                    </Modal>
+                    
 
                     <div className='flex items-center justify-between max-w-[300px] bg-orange p-2 rounded-sm'>
                         <button className='hover:scale-110 rounded-[50%]' onClick={() => {count > 1 && setCount(prev => prev - 1)}}>
