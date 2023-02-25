@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Product = require('../model/Product');
 const {validationResult} = require('express-validator');
+const { SchemaType, Schema } = require('mongoose');
 
 const addProduct = asyncHandler(
     async (req, res) => {
@@ -69,15 +70,18 @@ const getProduct = asyncHandler(
 
 const updateProduct = asyncHandler(
     async (req, res) => {
-        const {prodId} = req.params;
-        const {name, price, desc} = req.body;
+
+        const {_id : id} = req.user; 
+        const { prodId } = req.params;
+
+        const {name, price, desc, imageUrl, category, qty} = req.body;
 
         const errors = validationResult(req);
         let product;
 
-        if(!name || !price || !desc) {
+        if(!name || !price || !desc || !imageUrl || !category || !qty) {
             res.status(400);
-            throw new Error('Please Provide all the fields')    
+            throw new Error('Provide the required fields')    
         }
 
         if(!errors.isEmpty()) {
@@ -86,18 +90,80 @@ const updateProduct = asyncHandler(
         }
 
         try {
+            const productRes = await Product.findById(prodId);
+        } catch(err) {
+            res.status(401);
+            throw new Error('Product Not Found');
+        }
+
+
+        try {
+
+            const { postedBy } = product;
+            
+            if(postedBy.toString() !== id.toString()) {
+                res.status(401);
+                throw new Error('Not Authorized');
+            }
+
             product.name = name;
             product.price = price;
             product.desc = desc;
+            product.imageUrl = imageUrl;
+
             const newProduct = await product.save();
             res.status(200).json(newProduct);
+            
         } catch(err) {
             res.status(500);
-            throw new Error('Failed to Update product');
+            throw new Error('Failed to update the product');
         }
         res.status(200).json(product);
     }
 )  
 
+const deleteProduct = asyncHandler(
+    async (req, res) => {
+        const {_id : id} = req.user; 
+        const { prodId } = req.params;
 
-module.exports = {addProduct, getProducts, getProduct, updateProduct}
+        let product;
+        
+        // Search for the product 
+
+        try {
+            product = await Product.findById(prodId);
+        } catch(err) {
+            throw new Error('Failed to fetch the product');
+        }
+
+        // Product not Found 
+
+        if(!product) {
+            throw new Error('Product Not Found');
+        }
+
+        // Authorized or not 
+
+        const { postedBy } = product;
+            
+        if(postedBy.toString() !== id.toString()) {
+            res.status(401);
+            throw new Error('Not Authorized');
+        } 
+
+        // Delete the product 
+
+        try {
+            product = await Product.findByIdAndDelete(prodId);
+            res.status(202);
+            res.json({msg: 'Deleted Item'});
+        } catch (err) {
+            throw new Error(err.message);
+        }
+
+    }
+)
+
+
+module.exports = {addProduct, getProducts, getProduct, updateProduct, deleteProduct}

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { Appbar, Navbar } from '../components/header'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProduct, reset } from '../app/features/products/productSlice'
-import { MdAdd, MdImage, MdOutlineAddShoppingCart, MdRemove } from 'react-icons/md'
+import { MdAccountCircle, MdAdd, MdImage, MdOutlineAddShoppingCart, MdOutlineVerifiedUser, MdRemove } from 'react-icons/md'
 import Spinner from '../components/Spinner'
 import {Rating} from 'react-simple-star-rating' 
 import Breadcrumb from '../components/Breadcrumb'
@@ -22,12 +22,16 @@ const Product = () => {
 
     const [count, setCount] = useState(1);
 
-    const {_id, name, description, price, rating, imageUrl, category} = useSelector(state => state.product.product);
+    const {_id, name, description, price, rating, imageUrl, category, postedBy} = useSelector(state => state.product.product);
     const {isLoading, isError, isSuccess, message} = useSelector(state => state.product);
     
 
+
     const path = pathname.split('/');
     path[2] = name;
+    const userId = postedBy?._id;
+    const userName = postedBy?.name;
+    const email = postedBy?.email;
 
 
     useEffect(() => {
@@ -51,7 +55,7 @@ const Product = () => {
         <Appbar />
         <Navbar />
         <Breadcrumb path={path} />
-        <section className='flex flex-col gap-6 md:gap-8 mt-5 items-center sm:items-start sm:flex-row max-w-[1000px] mx-auto px-5 '>
+        <section className='flex flex-col gap-6 md:gap-8 mt-5 items-start sm:flex-row max-w-[1000px] mx-auto px-5 '>
             <div style={{
                 flex: 0.5
             }}>
@@ -59,7 +63,7 @@ const Product = () => {
             </div>
 
             <div
-                 className='max-w-[75%] overflow-hidden flex flex-col gap-3 sm:pt-5'
+                 className='w-full overflow-hidden flex flex-col gap-3 sm:pt-5'
                  style={{
                     flex: 0.5
                  }}>
@@ -71,7 +75,27 @@ const Product = () => {
                 <p className='flex items-center gap-2'>Category <MdImage /> {category?.slice(0, 1)?.toUpperCase() + category?.slice(1)} </p>
 
                 <Rating emptyStyle={{ display: "flex" }} size={24} fillStyle={{ display: "-webkit-inline-box" }} />
-                
+
+                <div className='flex gap-2 items-center'>
+                    <article className='gap-2 p-3 font-[300] w-1/2 border-fill my-2 flex items-center right-[0px]'>
+                        {
+                            userId  
+                                ?
+                                <div className='flex items-center gap-2'>
+                                    <MdAccountCircle className='text-[2rem]' />
+                                    <a href={`/users/${userId}`} className='h-[30px] bg-orange w-[30px] rounded-[50%] font-[500] grid place-content-center'>{userName?.slice(0, 1).toUpperCase()}</a>
+                                    <a href={`/users/${userId}`} className='cursor-pointer hover:underline'>@{userName}</a>
+                                </div>
+                                :
+                                <div className='flex items-center gap-2'>
+                                    <a href={`/users/${userId}`} className='h-[30px] bg-orange w-[30px] rounded-[50%] grid place-content-center'>u</a>
+                                    <a href={`/users/${userId}`} className='cursor-pointer hover:underline'>UnknownUser</a>
+                                </div> 
+                                
+                        }
+                    </article>
+                </div>
+
                 <div>
 
                     <div className='flex items-center justify-between max-w-[300px] bg-orange p-2 rounded-sm'>

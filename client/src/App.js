@@ -18,7 +18,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/add-product' element={<AddProducts />} />
-        <Route path='/product/:productId' element={<Product />} />
+        <Route path='/products/:productId' element={<Product />} />
       </Routes>
       <ToastContainer />
     </>
