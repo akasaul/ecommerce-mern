@@ -69,7 +69,7 @@ const UpdateProduct = () => {
             <Spinner />
         }
 
-        <h2 className='flex items-center gap-3 max-w-[800px] mx-auto my-5'>Post Product <MdCreate /></h2>
+        <h2 className='flex items-center gap-3 max-w-[800px] mx-auto my-5'>Edit Product <MdCreate /></h2>
         
         <form onSubmit={onSubmit}>
             

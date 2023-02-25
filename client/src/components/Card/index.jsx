@@ -1,13 +1,18 @@
 import { MdCollections, MdDescription, MdDetails, MdMore, MdOutlineFavorite, MdOutlineFavoriteBorder, MdOutlineShoppingCart, MdTitle } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { toggleFav } from '../../app/features/favs/favSlice'
 
 const Card = ({id, name, price, desc, imageUrl, category}) => {
   const [like, setLike] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleClick = (e) => {
-    setLike(like => !like)
     e.stopPropagation();
+    dispatch(toggleFav(id));
+    setLike(like => !like)
   }
 
   const handleAddToCart = (e) => {

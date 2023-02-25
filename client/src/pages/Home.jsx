@@ -5,9 +5,12 @@ import { getProducts, reset } from '../app/features/products/productSlice';
 import Card from '../components/Card';
 import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
+import useAuthStatus from '../hooks/useAuthStatus';
 
 const Home = () => {
-  
+
+  const isAuth = useAuthStatus();
+
   const dispatch = useDispatch();
 
   const {products, isError, isSuccess, isLoading, message} = useSelector(state => state.product);
@@ -19,6 +22,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getProducts());
   }, []);
+
 
   return (
     <div>

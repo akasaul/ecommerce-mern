@@ -2,8 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 const app = express();
+
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
+
 const cookieParser = require('cookie-parser');
 
 app.use(express.json());
@@ -13,6 +16,8 @@ app.use('/auth', authRoutes);
 
 
 app.use('/product', productRoutes);
+
+app.use('/user', userRoutes);
 
 // Error handler middleware 
 app.use((error, req, res, next) => {
