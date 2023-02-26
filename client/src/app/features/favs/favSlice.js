@@ -4,7 +4,8 @@ import favAPI from './favAPI'
 const API_URL = '/user/favs'
 
 const initialState = {
-    favs: []
+    favs: [],
+    pending: false
 }
 
 
@@ -42,18 +43,29 @@ const favReducer = createSlice({
             // Toggle fav states 
             .addCase(toggleFav.fulfilled, (state, action) => {
                 console.log(state.favs);
+                state.pending = false;
                 state.favs = action.payload;
             })
+            .addCase(toggleFav.pending, (state) => {
+                state.pending = true;
+            })
             .addCase(toggleFav.rejected, (state, action) => {
+                state.pending = false;
                 console.log(action.payload);
             })
 
             // Get favs states 
+            .addCase(getFavs.pending, (state, action) => {
+                state.pending = true;
+            })
+            
             .addCase(getFavs.fulfilled, (state, action) => {
                 state.favs = action.payload;
+                state.pending = false;
             })
             .addCase(getFavs.rejected, (state, action) => {
                 console.log(action.payload);
+                state.pending = false;
             })
             
     }

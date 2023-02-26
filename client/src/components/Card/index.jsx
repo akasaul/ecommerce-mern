@@ -29,7 +29,7 @@ const Card = ({id, name, price, desc, imageUrl, category, favs}) => {
         <button className='bg-white shadow-lg absolute h-10 w-10 text-[20px] grid place-content-center rounded-[50%] right-[20px] top-[185px] hover:scale-110' 
             onClick={handleClick}>
           {
-            favs?.includes(id) ? <MdOutlineFavorite className='text-orange' /> : 
+            favs?.includes(id) || like ? <MdOutlineFavorite className='text-orange' /> : 
               <MdOutlineFavoriteBorder /> 
           }
         </button>
