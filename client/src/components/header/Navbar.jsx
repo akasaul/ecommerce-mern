@@ -1,13 +1,27 @@
 import React from 'react'
 import { useState } from 'react';
-import {MdShoppingBasket, MdExpandMore, MdSearch, MdAccountCircle, MdOutlineShoppingCart, MdMenu, MdClose, MdQuestionAnswer, MdShop} from 'react-icons/md'
-import { useSelector } from 'react-redux';
+import {MdShoppingBasket, MdExpandMore, MdSearch, MdAccountCircle, MdOutlineShoppingCart, MdMenu, MdClose, MdQuestionAnswer, MdShop, MdFoodBank, MdPhone, MdPhoneAndroid, MdKitchen, MdChair, MdPages, MdList, MdExpandLess} from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategory, getProducts } from '../../app/features/products/productSlice';
 import useAuthStatus from '../../hooks/useAuthStatus';
 
 const Navbar = () => {
     const [show, setShow] = useState(false);
+    const [showCategoryDesktop, setShowCategoryDesktop] = useState(false);
+
     const isAuth = useAuthStatus();
     const {cart} = useSelector(state => state.cart);
+    const dispatch = useDispatch();
+
+    const {products, isError, isSuccess, isLoading, message} = useSelector(state => state.product);
+
+    const onClickDesktop = async (e) => {
+        const category = e.target.textContent.toLowerCase().trim();
+        console.log(category);
+        await dispatch(getProducts());
+        dispatch(getCategory(category));
+        setShowCategoryDesktop(false);
+    }
 
     return (
         
@@ -18,11 +32,27 @@ const Navbar = () => {
         </a>
 
         <ul className="center flex-[0.4] hidden md:flex items-center gap-4">
-            <li>
-                <a href="/categories" className='flex items-end gap-1'>
+            <li className='relative'>
+                <button className='flex items-end gap-1' onClick={() => setShowCategoryDesktop(prev => !prev)}>
                     Categories
-                    <MdExpandMore />
-                </a>
+                    {
+                        showCategoryDesktop ? 
+                        <MdExpandLess /> : 
+                        <MdExpandMore />
+                    }
+                </button>
+                {
+                    showCategoryDesktop &&
+                    <div className='absolute z-[10] top-[45px] flex flex-col bg-white w-[200px] p-2'>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickDesktop}>Food <MdFoodBank /> </button>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickDesktop}>Cloth <MdShop /></button>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickDesktop}>Electronics <MdPhoneAndroid /></button>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickDesktop}>Instrument <MdKitchen /></button>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickDesktop}>Furniture <MdChair /></button>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickDesktop}>Other <MdPages /></button>
+                        <a href='/' className=' p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start'>All <MdList /></a>
+                    </div>
+                }
             </li>
             <li className='flex items-end gap-1'>
                 <a href="/shop" className='flex items-end gap-1'>

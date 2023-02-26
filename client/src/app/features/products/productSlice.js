@@ -97,7 +97,10 @@ const productSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
-        reset: (state) => initialState
+        reset: (state) => initialState,
+        getCategory: (state, action) => {
+            state.products = state.products.filter(product => product.category === action.payload);
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -197,5 +200,5 @@ const productSlice = createSlice({
 export const productSelector = state => state.product.product.product;
 
 
-export const { reset } = productSlice.actions
+export const { reset, getCategory } = productSlice.actions
 export default productSlice.reducer;

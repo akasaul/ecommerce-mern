@@ -34,16 +34,22 @@ const Home = () => {
        {
         isLoading && <Spinner />
        }
-      
-      <Layout>
-        {
-          products.map(({_id, name, description, price, imageUrl, category}) => (
-            <Card key={_id} name={name} favs={favs} id={_id} price={price} category={category} desc={description} imageUrl={imageUrl} />
-          ))
-        }
-      </Layout>
-
-    </div>
+       
+        <Layout>
+          {
+            products.length > 0 ? 
+            products.map(({_id, name, description, price, imageUrl, category}) => (
+              <Card key={_id} name={name} favs={favs} id={_id} price={price} category={category} desc={description} imageUrl={imageUrl} />
+            )) : 
+            <div className='grid place-content-center'>
+              <img src="/33.png" className='max-h-[300px]' alt="" />
+              <h2 className='text-center font-thin'>Not Items Found in this category</h2>
+              <a href='/' className='bg-orange text-center p-2 px-4 my-4 rounded-sm'>Back Home</a>
+            </div>
+          }
+        </Layout>
+        
+      </div>
   )
 }
 

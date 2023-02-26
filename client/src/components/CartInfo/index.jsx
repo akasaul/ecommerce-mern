@@ -3,7 +3,7 @@ import { MdAddCircle } from 'react-icons/md'
 
 const index = ({total, totalWithTax, payment}) => {
   return (
-    <div className='self-center p-6 mt-6 sm:mt-0 flex flex-col gap-4 h-[300px] justify-center font-thin flex-[0.3] bg-[#F0F0F0]'>
+    <div className='p-6 mt-6 sm:mt-0 flex flex-col gap-4 h-[300px] justify-center font-thin flex-[0.3] bg-[#F0F0F0]'>
     <div className='flex justify-between min-w-[250px]'>
         <p>Subtotal</p>
         <p>${total}</p>
