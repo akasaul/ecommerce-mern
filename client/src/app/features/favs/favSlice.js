@@ -42,7 +42,6 @@ const favReducer = createSlice({
         builder
             // Toggle fav states 
             .addCase(toggleFav.fulfilled, (state, action) => {
-                console.log(state.favs);
                 state.pending = false;
                 state.favs = action.payload;
             })
