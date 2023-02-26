@@ -3,7 +3,6 @@ import { useState } from 'react';
 import {MdShoppingBasket, MdExpandMore, MdSearch, MdAccountCircle, MdOutlineShoppingCart, MdMenu, MdClose, MdQuestionAnswer, MdShop} from 'react-icons/md'
 import { useSelector } from 'react-redux';
 import useAuthStatus from '../../hooks/useAuthStatus';
-import { getCart } from '../../app/features/cart/cartSlice';
 
 const Navbar = () => {
     const [show, setShow] = useState(false);
