@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleFav } from '../../app/features/favs/favSlice'
+import { addToCart } from '../../app/features/cart/cartSlice'
 
 const Card = ({id, name, price, desc, imageUrl, category, favs}) => {
   const [like, setLike] = useState(false);
@@ -15,8 +16,11 @@ const Card = ({id, name, price, desc, imageUrl, category, favs}) => {
     dispatch(toggleFav(id));
   }
 
-  const handleAddToCart = (e) => {
+  const handleAddToCart = (e, id, name, qty, price, imageUrl, category, desc) => {
     e.stopPropagation();
+    const item = {id, name, qty, price, imageUrl, category, desc};
+
+    dispatch(addToCart(item));
   }
 
   const navigate = useNavigate();
@@ -42,9 +46,9 @@ const Card = ({id, name, price, desc, imageUrl, category, favs}) => {
                
         <div className='flex items-center px-3 pb-4 justify-between'>
             <p className='text-[#0891b2]'>$ {price}</p>
-            <a href='/cart/sth' className='bg-orange grid place-content-center h-[40px] rounded-sm w-[40px]' onClick={handleAddToCart}>
+            <button className='bg-orange grid place-content-center h-[40px] rounded-sm w-[40px]' onClick={(e) => handleAddToCart(e, id, name, 1, price, imageUrl, category, desc)}>
                 <MdOutlineShoppingCart className='text-[20px]' />
-            </a>
+            </button>
         </div>      
     </section>
   )

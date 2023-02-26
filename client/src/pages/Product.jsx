@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { Appbar, Navbar } from '../components/header'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProduct, reset, productSelector, deleteProduct } from '../app/features/products/productSlice'
@@ -8,6 +8,7 @@ import Spinner from '../components/Spinner'
 import {Rating} from 'react-simple-star-rating' 
 import Breadcrumb from '../components/Breadcrumb'
 import Modal from 'react-modal';
+import { addToCart } from '../app/features/cart/cartSlice'
 
 const checkMatch = (email, email2) => {
     return email === email2;
@@ -20,6 +21,8 @@ const Product = () => {
 
 
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(reset());
@@ -61,6 +64,14 @@ const Product = () => {
 
     const removeProduct = (id) => {
         dispatch(deleteProduct(id));
+    }
+
+
+    const handleclick = ({id, name, count, price, imageUrl, category, description}) => {
+        console.log('add to cart');
+        const item = {id, name, price, imageUrl, category, desc: description, qty: count};
+        dispatch(addToCart(item));
+        navigate('/cart');
     }
 
     return (
@@ -154,7 +165,7 @@ const Product = () => {
                     </div>
 
                     <div className='flex item-center justify-between p-3 mt-3'>
-                        <button className='bg-orange p-2 rounded-sm  hover:scale-110'>
+                        <button className='bg-orange p-2 rounded-sm  hover:scale-110' onClick={() => handleclick({id, name, count, price, imageUrl, category, description})}>
                             <MdOutlineAddShoppingCart className='text-md' />
                         </button>
                         <p>$ {count * price}</p>

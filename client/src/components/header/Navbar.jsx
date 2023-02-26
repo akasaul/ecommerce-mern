@@ -1,11 +1,14 @@
 import React from 'react'
 import { useState } from 'react';
 import {MdShoppingBasket, MdExpandMore, MdSearch, MdAccountCircle, MdOutlineShoppingCart, MdMenu, MdClose, MdQuestionAnswer, MdShop} from 'react-icons/md'
+import { useSelector } from 'react-redux';
 import useAuthStatus from '../../hooks/useAuthStatus';
+import { getCart } from '../../app/features/cart/cartSlice';
 
 const Navbar = () => {
     const [show, setShow] = useState(false);
     const isAuth = useAuthStatus();
+    const {cart} = useSelector(state => state.cart);
 
     return (
         
@@ -49,10 +52,11 @@ const Navbar = () => {
                     </a>
                 </li>
 
-                <li>
+                <li className='relative'>
                     <a href='/cart' className='flex items-center gap-2'>
                         <MdOutlineShoppingCart className='text-md' /> Cart
                     </a>
+                    <span className='absolute top-[-10px] left-[10px] bg-orange text-white h-[20px] rounded-[50%] w-[20px] place-content-center grid'>{cart.length}</span>
                 </li>
 
             </ul>
@@ -62,6 +66,9 @@ const Navbar = () => {
         <button className='text-md md:hidden' onClick={() => setShow(true)}>
             <MdMenu />
         </button>
+
+
+        {/* Mobile Menu  */}
 
         <ul className={`absolute bg-white flex flex-col gap-2 px-3 w-[250px] md:hidden top-0 bottom-0 py-5 z-10 right-0 translate-x-[500px] transition-transform duration-[0.5s] ${show && 'translate-x-[50px]'}`}>
             
@@ -94,10 +101,11 @@ const Navbar = () => {
                 </a>
             </li>
             
-            <li>
-                <a href='#' className='flex items-center gap-1'>
+            <li className='relative'>
+                <a href='/cart' className='flex items-center gap-1'>
                     <MdOutlineShoppingCart className='text-md' /> Cart
                 </a>
+                <span className='absolute top-[-10px] left-[10px] bg-orange text-white h-[20px] rounded-[50%] w-[20px] place-content-center grid'>{cart.length}</span>
             </li>
 
         </ul>
