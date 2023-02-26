@@ -8,19 +8,26 @@ import useAuthStatus from '../../hooks/useAuthStatus';
 const Navbar = () => {
     const [show, setShow] = useState(false);
     const [showCategoryDesktop, setShowCategoryDesktop] = useState(false);
+    const [showCategoryMobile, setShowCategoryMobile] = useState(false);
+
 
     const isAuth = useAuthStatus();
     const {cart} = useSelector(state => state.cart);
     const dispatch = useDispatch();
 
-    const {products, isError, isSuccess, isLoading, message} = useSelector(state => state.product);
 
     const onClickDesktop = async (e) => {
         const category = e.target.textContent.toLowerCase().trim();
-        console.log(category);
         await dispatch(getProducts());
         dispatch(getCategory(category));
         setShowCategoryDesktop(false);
+    }
+
+    const onClickMobile = async (e) => {
+        const category = e.target.textContent.toLowerCase().trim();
+        await dispatch(getProducts());
+        dispatch(getCategory(category));
+        setShowCategoryMobile(false);
     }
 
     return (
@@ -106,10 +113,26 @@ const Navbar = () => {
             </button>
 
             <li>
-                <a href='#' className='flex items-end gap-1 py-2'>
+                <button className='flex items-end gap-1 py-2' onClick={() => setShowCategoryMobile(prev => !prev)}>
                     Categories
-                    <MdExpandMore />
-                </a>
+                    {
+                        showCategoryMobile ? 
+                        <MdExpandLess /> : 
+                        <MdExpandMore /> 
+                    }
+                </button>
+                {
+                    showCategoryMobile &&
+                    <div className='flex flex-col bg-white w-[200px] p-2'>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickMobile}>Food <MdFoodBank /> </button>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickMobile}>Cloth <MdShop /></button>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickMobile}>Electronics <MdPhoneAndroid /></button>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickMobile}>Instrument <MdKitchen /></button>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickMobile}>Furniture <MdChair /></button>
+                        <button className='border-b border-secondary p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start' onClick={onClickMobile}>Other <MdPages /></button>
+                        <a href='/' className=' p-2 flex items-center justify-between hover:bg-secondary hover:text-white text-start'>All <MdList /></a>
+                    </div>
+                }
             </li>
 
             <li>

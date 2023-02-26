@@ -10,8 +10,6 @@ import { favSelector, getFavs } from '../app/features/favs/favSlice';
 
 const Home = () => {
 
-  const isAuth = useAuthStatus();
-
   const dispatch = useDispatch();
 
   const {products, isError, isSuccess, isLoading, message} = useSelector(state => state.product);
@@ -29,8 +27,8 @@ const Home = () => {
 
   return (
     <div>
-      <Appbar />
       <Navbar />
+      <Appbar />
        {
         isLoading && <Spinner />
        }
