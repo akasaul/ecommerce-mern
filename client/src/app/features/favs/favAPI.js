@@ -6,10 +6,20 @@ const toggleFav = async (id, token, url) => {
         Authorization: 'Bearer ' + token
         }
     }
-    const {data} = axios.post(url, {id}, config);
-    console.log(data);
+    const {data} = await axios.post(url, {id}, config);
+    const {favs} = data;
+    return favs;
+}
+
+const getFavs = async (token, url) => {
+    const config = {
+        headers: {
+        Authorization: 'Bearer ' + token
+        }
+    }
+    const {data} = await axios.get(url, config);
     return data;
 }
 
 
-export default {toggleFav};
+export default {toggleFav, getFavs};

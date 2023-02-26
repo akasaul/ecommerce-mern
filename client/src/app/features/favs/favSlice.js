@@ -20,6 +20,18 @@ export const toggleFav = createAsyncThunk(
     }
 )
 
+export const getFavs = createAsyncThunk(
+    'fav/getFavs',
+    async (_, thunkAPI) => {
+        try {
+            const token = thunkAPI.getState().user.user?.token;
+            return await favAPI.getFavs(token, API_URL);
+        } catch(err) {
+            thunkAPI.rejectWithValue('Can\'t Fetch liked');
+        }
+    }
+)
+
 
 const favReducer = createSlice({
     name: 'fav',
@@ -27,6 +39,7 @@ const favReducer = createSlice({
     reducer: {},
     extraReducers: (builder) => {
         builder
+            // Toggle fav states 
             .addCase(toggleFav.fulfilled, (state, action) => {
                 console.log(state.favs);
                 state.favs = action.payload;
@@ -34,9 +47,18 @@ const favReducer = createSlice({
             .addCase(toggleFav.rejected, (state, action) => {
                 console.log(action.payload);
             })
+
+            // Get favs states 
+            .addCase(getFavs.fulfilled, (state, action) => {
+                state.favs = action.payload;
+            })
+            .addCase(getFavs.rejected, (state, action) => {
+                console.log(action.payload);
+            })
+            
     }
 }
 )
 
-
+export const favSelector = state => state.fav.favs;
 export default favReducer.reducer;

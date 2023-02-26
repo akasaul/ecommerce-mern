@@ -6,6 +6,7 @@ import Card from '../components/Card';
 import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
 import useAuthStatus from '../hooks/useAuthStatus';
+import { favSelector, getFavs } from '../app/features/favs/favSlice';
 
 const Home = () => {
 
@@ -21,8 +22,10 @@ const Home = () => {
   
   useEffect(() => {
     dispatch(getProducts());
+    dispatch(getFavs());
   }, []);
 
+  const favs = useSelector(favSelector);
 
   return (
     <div>
@@ -35,7 +38,7 @@ const Home = () => {
       <Layout>
         {
           products.map(({_id, name, description, price, imageUrl, category}) => (
-            <Card key={_id} name={name} id={_id} price={price} category={category} desc={description} imageUrl={imageUrl} />
+            <Card key={_id} name={name} favs={favs} id={_id} price={price} category={category} desc={description} imageUrl={imageUrl} />
           ))
         }
       </Layout>

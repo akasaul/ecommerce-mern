@@ -137,8 +137,19 @@ const toggleFavorite = asyncHandler(
 })
 
 
+
+const getFavs = asyncHandler( 
+    async (req, res) => {
+    const user = req.user;
+    res.json(user.favs);
+})
+
+
+
+
 module.exports = {
     addToCart,
     removeFromCart,
-    toggleFavorite
+    toggleFavorite,
+    getFavs
 }
