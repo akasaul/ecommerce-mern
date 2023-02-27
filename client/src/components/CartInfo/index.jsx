@@ -29,7 +29,7 @@ const index = ({total, totalWithTax, payment}) => {
         <></> : 
         payment ? 
         <a href={`/cart/payment/finish`} className='bg-orange p-2 font-[500]'>Finish Payment</a> : 
-        <a href={`/cart/payment?total=${total}&withvat=${totalWithTax}`} className='bg-orange p-2 font-[500]'>Continue to Payment</a> 
+        <a href={`/cart/payment`} className='bg-orange p-2 font-[500]'>Continue to Payment</a> 
     }
 </div>
 

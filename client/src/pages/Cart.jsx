@@ -23,6 +23,7 @@ const Cart = () => {
 
   return (
     <>
+        <Appbar />
         <Navbar />
         <Breadcrumb path={path.pathname.split('/')} />
         <div className='flex-col max-w-[1200px] mx-auto gap-5 mt-5'>
@@ -44,11 +45,8 @@ const Cart = () => {
                             <CartItem key={item.id} item={item}  />
                         )
                         ) : 
-                        <div className='h-[300px] w-full overflow-hidden m-3'
-                            style={{
-                                background: `url('https://img.freepik.com/free-vector/online-shopping-concept-landing-page_23-2148250587.jpg?w=740&t=st=1677429623~exp=1677430223~hmac=14fef701948fee35e5ded21179e96c76ea2664bc0313d16fd52eab4c462761c3')`,
-                                backgroundPosition: 'center center  '
-                            }}>
+                        <div className='h-[300px] w-full flex justify-center object-cover overflow-hidden m-3'>
+                            <img className='max-h-[100%]' src="https://img.freepik.com/free-vector/shopping-trolley-white-background_1308-77211.jpg?w=740&t=st=1677530296~exp=1677530896~hmac=a9dc7164592eaed5de9cdc22b55431bcac0a878b3cb13343ac573d749f4421c6" alt="" />
                         </div>
                     }
                 </div>

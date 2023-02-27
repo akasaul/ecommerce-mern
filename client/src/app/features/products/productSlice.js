@@ -21,9 +21,9 @@ const API_URL = '/product'
 // Get Products 
 export const getProducts = createAsyncThunk(
     'product/getProducts',
-    async (thunkAPI) => {
+    async (page, thunkAPI) => {
         try {
-            const data =  await productAPI.getProducts(API_URL);
+            const data =  await productAPI.getProducts(API_URL + `?page=${page}`);
             return data; 
         } catch(error) {
             console.log(error);

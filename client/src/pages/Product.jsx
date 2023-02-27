@@ -11,6 +11,7 @@ import Modal from 'react-modal';
 import { addToCart } from '../app/features/cart/cartSlice'
 import Footer from '../components/Footer/Footer'
 import {toast} from 'react-toastify'
+import ProductNotFound from './ProductNotFound'
 
 const checkMatch = (email, email2) => {
     return email === email2;
@@ -60,7 +61,7 @@ const Product = () => {
 
     if(isError) {
         return (
-            <h1>Product Not Found</h1>
+            <ProductNotFound />
         )
     }
 

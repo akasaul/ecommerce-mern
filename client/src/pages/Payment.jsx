@@ -4,16 +4,22 @@ import CartInfo from '../components/CartInfo';
 import {Navbar, Appbar} from '../components/header';
 import BreadCrumb from '../components/Breadcrumb';
 import Footer from '../components/Footer/Footer';
+import { useSelector } from 'react-redux';
 
 const Payment = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const {pathname} = useLocation();
+    const {cart} = useSelector(state => state.cart);
 
-    const total = searchParams.get('total');
-    const totalWithTax = searchParams.get('withvat');
+    const total = cart.reduce((total, cur) => total + (cur.qty *  cur.price), 0);
+    const totalWithTax = total + total * 0.15;
+
+
+    console.log(cart);
 
     return (
         <>
+            <Appbar />
             <Navbar />
             <BreadCrumb path={pathname.split('/').slice(0, 3)} />
 

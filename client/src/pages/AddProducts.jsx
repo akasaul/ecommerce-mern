@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { MdTextFormat, MdAttachMoney, MdProductionQuantityLimits, MdCategory, MdLink, MdCreate, MdDescription } from 'react-icons/md'
+import { MdTextFormat, MdAttachMoney, MdProductionQuantityLimits, MdCategory, MdLink, MdCreate, MdDescription, MdImage, MdCamera, MdCameraAlt } from 'react-icons/md'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Breadcrumb from '../components/Breadcrumb'
 import {Appbar, Navbar} from '../components/header'
@@ -70,7 +70,7 @@ const AddProduct = () => {
 
         <h2 className='flex items-center gap-3 max-w-[800px] mx-auto my-5'>Post Product <MdCreate /></h2>
         
-        <form onSubmit={onSubmit} noValidate>
+        <form onSubmit={onSubmit} noValidate encType='multipart'>
             
             <div className='grid sm:grid-cols-2 px-4 gap-5 max-w-[800px] mx-auto'>
                 <div className='flex flex-col gap-2'>

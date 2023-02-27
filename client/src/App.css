@@ -98,7 +98,22 @@ input[type="checkbox"] {
     color: var(--form-control-disabled);
     cursor: not-allowed;
   }
+
+
+  input[type="file"] {
+    display: none;
+  }
   
+  label[for="file"] {
+    cursor: pointer;
+    width: 3rem;
+    height: 100%;
+  }
+
+  label[for="file"]:hover {
+    background: #C9C9C9;
+    border-radius: 50%;
+  }
 
 
 @media (min-width: 550px) {

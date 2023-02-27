@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const protect = require('../middleware/protect');
 const {body} = require('express-validator')
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' })
+
 
 const { addProduct, getProducts, getProduct, updateProduct, deleteProduct, searchProduct} = require('../controller/productController');
 

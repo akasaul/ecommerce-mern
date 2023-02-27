@@ -6,7 +6,7 @@ import Card from '../components/Card';
 import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
 import { favSelector, getFavs } from '../app/features/favs/favSlice';
-import { MdFavorite, MdOutlineFavoriteBorder, MdOutlineFormatListNumberedRtl, MdOutlineShoppingCart, MdShoppingCart } from 'react-icons/md';
+import { MdOutlineFavoriteBorder, MdOutlineFormatListNumberedRtl, MdOutlineShoppingCart, MdShoppingCart, MdSkipNext, MdSkipPrevious } from 'react-icons/md';
 import Footer from '../components/Footer/Footer';
 
 const Home = () => {
@@ -19,23 +19,33 @@ const Home = () => {
   const [priceRange, setPriceRange] = useState(0);
   const [inCart, setInCart] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     dispatch(reset());
   }, [])
   
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProducts(page));
     dispatch(getFavs());
-  }, []);
+  }, [page]);
 
   const favs = useSelector(favSelector);
+
+
+  const paginateForward = () => {
+    setPage(prev => prev + 1)
+  }
+  
+  const paginateBackward = () => {
+    setPage(prev => prev - 1)
+  }
 
   return (
     <>
 
-      <Navbar />
       <Appbar />
+      <Navbar />
 
       {/* Filter        */}
 
@@ -58,9 +68,8 @@ const Home = () => {
       </section>
       
        {
-        isLoading && <Spinner />
-       }
-       
+        isLoading ? <Spinner />
+        :
         <Layout>
          
           {
@@ -88,6 +97,15 @@ const Home = () => {
           }
         
         </Layout>
+
+       }
+
+
+        <div className='max-w-[300px] mt-9 items-center justify-around mx-auto flex '>
+          <button onClick={paginateBackward} disabled={page < 2} className='flex items-center gap-2 border border-primary p-2 px-4 hover:bg-primary hover:text-white'><MdSkipPrevious /> Prev </button>
+          <button className='flex items-center gap-2'> {page} </button>
+          <button onClick={paginateForward} disabled={products.length === 0} className='flex items-center gap-2 border border-primary p-2 px-4 hover:bg-primary hover:text-white'>Next <MdSkipNext /></button>
+        </div>
 
         <Footer />
 

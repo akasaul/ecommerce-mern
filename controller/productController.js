@@ -1,7 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Product = require('../model/Product');
 const {validationResult} = require('express-validator');
-const { SchemaType, Schema } = require('mongoose');
 
 const addProduct = asyncHandler(
     async (req, res) => {
@@ -37,19 +36,21 @@ const addProduct = asyncHandler(
     }
 )  
 
+
 const getProducts = asyncHandler(
     async (req, res) => {
         const currentPage = Number(req.query.page);
 
-        const productsPerPage = 10;
+        const productsPerPage = 5;
         const skip = (currentPage - 1) * productsPerPage;
 
+        
         try {
             const products = await Product.find()
                 .skip(skip)
                 .limit(productsPerPage)
                 .sort({createdAt: 'desc'})
-                .exec()
+                .exec();
 
                 res.status(200).json(products);
         } catch(err) {
@@ -81,7 +82,6 @@ const updateProduct = asyncHandler(
         const {_id : id} = req.user; 
         const { prodId } = req.params;
 
-        console.log(prodId);
         const errors = validationResult(req);
 
 
@@ -213,7 +213,6 @@ const searchProduct = asyncHandler(
                 postedBy?.name?.toLowerCase().includes(keyword))
         })
 
-        console.log('search');
         res.json(filteredProducts);
     }
 )
