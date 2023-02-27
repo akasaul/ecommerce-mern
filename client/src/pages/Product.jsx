@@ -3,12 +3,14 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { Appbar, Navbar } from '../components/header'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProduct, reset, productSelector, deleteProduct } from '../app/features/products/productSlice'
-import { MdAccountCircle, MdAdd, MdArrowBack, MdClose, MdDelete, MdEdit, MdImage, MdOutlineAddShoppingCart, MdOutlineVerifiedUser, MdRemove, MdUpdate } from 'react-icons/md'
+import { MdAccountCircle, MdAdd, MdArrowBack, MdClose, MdDelete, MdEdit, MdImage, MdOutlineAddShoppingCart, MdOutlineVerifiedUser, MdRemove, MdRemoveCircle, MdUpdate } from 'react-icons/md'
 import Spinner from '../components/Spinner'
 import {Rating} from 'react-simple-star-rating' 
 import Breadcrumb from '../components/Breadcrumb'
 import Modal from 'react-modal';
 import { addToCart } from '../app/features/cart/cartSlice'
+import Footer from '../components/Footer/Footer'
+import {toast} from 'react-toastify'
 
 const checkMatch = (email, email2) => {
     return email === email2;
@@ -64,6 +66,9 @@ const Product = () => {
 
     const removeProduct = (id) => {
         dispatch(deleteProduct(id));
+        setModalOpen(false);
+        toast.error(`Successfully Deleted ${name}`)
+        navigate('/');
     }
 
 
@@ -128,7 +133,7 @@ const Product = () => {
                 {
                     checkMatch(user?.email, postedBy?.email) && 
                     <div className='flex items-around gap-3 my-2'>
-                        <a href={`/product/update/${_id}`} className='flex items-center gap-2'>Edit<MdEdit /></a>
+                        <a href={`/product/update/${_id}?name=${name}&desc=${description}&price=${price}&imgUrl=${imageUrl}&qty=${count}&category=${category}`} className='flex items-center gap-2'>Edit<MdEdit /></a>
                         <button  className='flex items-center gap-2' onClick={() => setModalOpen(true)}>Delete<MdDelete/></button>
                     </div>
                 }
@@ -144,11 +149,14 @@ const Product = () => {
                                     <MdClose />
                                 </button>
                             </section>
-                        <h1>Are you sure to delete {name}</h1>
                         
-                        <div className='flex gap-5'>
-                            <button className='flex items-center gap-2 hover:bg-orange p-1' onClick={() => removeProduct(_id)}><MdDelete /> Yes</button>
-                            <button className='flex items-center gap-2 hover:bg-orange p-1' onClick={() => setModalOpen(false)}><MdArrowBack /> No</button>
+                        <div className='grid place-content-center min-h-[50vh]'>
+                            <img src="/vecteezy_delete-icon-no-sign-cancel-wrong-and-reject_.jpg" className='h-[200px]' alt="" />
+                            <h1>Are you sure to delete {name}</h1>
+                            <div className='flex justify-around'>
+                                <button className='flex items-center gap-2 hover:bg-orange p-1' onClick={() => removeProduct(_id)}><MdDelete /> Yes</button>
+                                <button className='flex items-center gap-2 hover:bg-orange p-1' onClick={() => setModalOpen(false)}><MdArrowBack /> No</button>
+                            </div>
                         </div>
                     
                     </Modal>
@@ -175,6 +183,8 @@ const Product = () => {
 
             </div>
         </section>
+
+        <Footer  />
     </>
   )
 }

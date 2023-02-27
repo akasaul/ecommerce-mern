@@ -8,6 +8,7 @@ import Spinner from '../components/Spinner';
 import { favSelector, getFavs } from '../app/features/favs/favSlice';
 import { MdFavorite, MdOutlineFormatListNumberedRtl, MdShoppingCart } from 'react-icons/md';
 import { useSearchParams } from 'react-router-dom';
+import Footer from '../components/Footer/Footer';
 
 const SearchResults = () => {
 
@@ -41,7 +42,7 @@ const SearchResults = () => {
   const favs = useSelector(favSelector);
 
   return (
-    <div>
+    <>
       <Navbar />
       <Appbar />
 
@@ -83,6 +84,7 @@ const SearchResults = () => {
             .map(({_id, name, description, price, imageUrl, category}) => (
               <Card key={_id} name={name} favs={favs} id={_id} price={price} category={category} desc={description} imageUrl={imageUrl} />
             )) : 
+              !isLoading &&
             <div className='grid place-content-center'>
               <img src="/33.png" className='max-h-[300px]' alt="" />
               <h2 className='text-center font-thin'>Not Items Found</h2>
@@ -91,7 +93,9 @@ const SearchResults = () => {
           }
         </Layout>
         
-      </div>
+        <Footer />
+        
+      </>
   )
 }
 

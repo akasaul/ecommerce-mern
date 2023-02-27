@@ -7,6 +7,7 @@ import Breadcrumb from '../components/Breadcrumb'
 import CartItem from '../components/CartItem/CartItem'
 import { Navbar, Appbar } from '../components/header'
 import CartInfo from '../components/CartInfo';
+import Footer from '../components/Footer/Footer'
 
 const Cart = () => {
 
@@ -68,6 +69,8 @@ const Cart = () => {
             </section>
             
         </div>
+        
+        <Footer />
     </>
   )
 }

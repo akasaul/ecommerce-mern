@@ -48,6 +48,7 @@ const getProducts = asyncHandler(
             const products = await Product.find()
                 .skip(skip)
                 .limit(productsPerPage)
+                .sort({createdAt: 'desc'})
                 .exec()
 
                 res.status(200).json(products);

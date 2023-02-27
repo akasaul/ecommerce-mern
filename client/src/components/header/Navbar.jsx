@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from 'react';
-import {MdShoppingBasket, MdExpandMore, MdSearch, MdAccountCircle, MdOutlineShoppingCart, MdMenu, MdClose, MdQuestionAnswer, MdShop, MdFoodBank, MdPhone, MdPhoneAndroid, MdKitchen, MdChair, MdPages, MdList, MdExpandLess} from 'react-icons/md'
+import {MdShoppingBasket, MdExpandMore, MdSearch, MdAccountCircle, MdOutlineShoppingCart, MdMenu, MdQuestionAnswer, MdShop, MdFoodBank, MdPhoneAndroid, MdKitchen, MdChair, MdPages, MdList, MdExpandLess, MdArrowBack} from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategory, getProducts } from '../../app/features/products/productSlice';
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import useAuthStatus from '../../hooks/useAuthStatus';
 
 const Navbar = () => {
@@ -118,7 +118,7 @@ const Navbar = () => {
         <ul className={`absolute bg-white flex flex-col gap-2 px-3 w-[250px] md:hidden top-0 bottom-0 py-5 z-10 right-0 translate-x-[500px] transition-transform duration-[0.5s] ${show && 'translate-x-[50px]'}`}>
             
             <button className='self-start' onClick={() => setShow(false)}>
-                <MdClose /> 
+                <MdArrowBack /> 
             </button>
 
             <li>

@@ -8,13 +8,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addProduct, getOneProduct, getProduct, productSelector, productStateSelector, reset, updateProduct } from '../app/features/products/productSlice';
 import {toast} from 'react-toastify'
 import Spinner from '../components/Spinner';
+import Footer from '../components/Footer/Footer'
+import {useSearchParams} from 'react-router-dom'
 
 
 const UpdateProduct = () => {
     const {pathname} = useLocation();
     const path = pathname.split('/').slice(0, 3);
+
+    const [query, setQuery] = useSearchParams();
+
+    const prodName = query.get('name');
+    const prodDesc = query.get('desc');
+    const prodPrice = query.get('price');
+    const prodImgUrl = query.get('imgUrl');
+    const prodQty = query.get('qty');
+    const prodCategory = query.get('category');
+
     
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const id = pathname.split('/')[3];
 
@@ -24,8 +38,6 @@ const UpdateProduct = () => {
         dispatch(getProduct(id));
     }, [])
 
-    const { name: prodName, description: prodDesc, price: prodPrice, category: prodCategory, qty: prodQty, imageUrl: prodImgUrl } = useSelector(productSelector);
-    
     const [formData, setFormData] = useState({
         name: prodName, 
         desc: prodDesc,
@@ -45,9 +57,12 @@ const UpdateProduct = () => {
 
     const {name, desc, price, qty, category, imageUrl} = formData;
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        dispatch(updateProduct({id, ...formData}));
+        
+        await dispatch(updateProduct({id, ...formData}));
+
+        navigate('/');
     }
 
     useEffect(() => {
@@ -120,6 +135,8 @@ const UpdateProduct = () => {
             <button type="submit" className='bg-orange block mx-auto w-full text-fill p-2 rounded-sm mt-12 max-w-[400px]'>Submit</button>
        
         </form>
+
+        <Footer />
     </>
   )
 }

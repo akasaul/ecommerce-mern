@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProduct, reset } from '../app/features/products/productSlice';
 import {toast} from 'react-toastify'
+import Footer from '../components/Footer/Footer'
 
 
 const AddProduct = () => {
@@ -115,9 +116,11 @@ const AddProduct = () => {
                 </div>
             </div>
 
-            <button type="submit" className='bg-orange block mx-auto w-full text-fill p-2 rounded-sm mt-12 max-w-[400px]'>Submit</button>
+            <button type="submit" className='bg-orange block mx-auto w-full text-fill p-2 rounded-sm mt-12 max-w-[400px]'>Submit {isLoading && '...'}</button>
        
         </form>
+
+        <Footer />
     </>
   )
 }

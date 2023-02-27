@@ -6,7 +6,7 @@ import Card from '../components/Card';
 import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
 import { favSelector, getFavs } from '../app/features/favs/favSlice';
-import { MdFavorite, MdOutlineFormatListNumberedRtl, MdShoppingCart } from 'react-icons/md';
+import { MdFavorite, MdOutlineFavoriteBorder, MdOutlineFormatListNumberedRtl, MdOutlineShoppingCart, MdShoppingCart } from 'react-icons/md';
 import Footer from '../components/Footer/Footer';
 
 const Home = () => {
@@ -40,18 +40,21 @@ const Home = () => {
       {/* Filter        */}
 
       <section className='max-w-[1000px] flex-col sm:flex-row font-thin flex items-center justify-center gap-3 bg-accent p-2 px-5 mt-3 mx-auto'>
+   
         <div className='flex items-center gap-3'>
           <p className='flex items-center gap-1'>Filters <MdOutlineFormatListNumberedRtl /> </p>
           <p>Price</p>
           <input type="range" name="price" value={priceRange} onChange={e => setPriceRange(e.target.value)} id="priceRange" min={0} step={50} max={1000} className='text-orange' />
           &lt; {priceRange}
         </div>
+       
         <div className='flex items-center gap-3'>
-          <p className='flex items-center gap-1'>In Cart <MdShoppingCart /> </p>
+          <p className='flex items-center gap-1'>In Cart <MdOutlineShoppingCart /> </p>
           <input type="checkbox" name="incart" value={inCart} onChange={() => setInCart(prev => !prev)} />
-          <p className='flex items-center gap-1'>Liked <MdFavorite /> </p>
+          <p className='flex items-center gap-1'>Liked <MdOutlineFavoriteBorder /> </p>
           <input type="checkbox" name="liked" value={liked} onChange={() => setLiked(prev => !prev)} />
         </div>
+    
       </section>
       
        {
@@ -59,6 +62,7 @@ const Home = () => {
        }
        
         <Layout>
+         
           {
             products.length > 0 &&
             products.filter(({_id, name, description, price, imageUrl, category}) => {
@@ -82,6 +86,7 @@ const Home = () => {
               <a href='/' className='bg-orange text-center p-2 px-4 my-4 rounded-sm'>Back Home</a>
             </div>
           }
+        
         </Layout>
 
         <Footer />

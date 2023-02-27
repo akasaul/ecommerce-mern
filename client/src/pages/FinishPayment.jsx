@@ -6,6 +6,7 @@ import { MdCheck, MdHome } from 'react-icons/md';
 import { AiFillGithub } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '../app/features/cart/cartSlice';
+import Footer from '../components/Footer/Footer';
 
 const FinishPayment = () => {
     const {pathname} = useLocation();
@@ -18,7 +19,7 @@ const FinishPayment = () => {
     }, [])
 
   return (
-    <div>
+    <>
         <Navbar />
         <BreadCrumb path={pathname.split('/')} />
         <section className='h-[70vh] justify-center flex flex-col gap-5 items-center'>
@@ -30,7 +31,8 @@ const FinishPayment = () => {
             <p>or</p>
             <a href='https://github.com/akasaul' className='border p-2 px-4 flex hover:bg-fill hover:text-white items-center gap-2'>Visit Code in Github<AiFillGithub /> </a>
         </section>
-    </div>
+        <Footer />
+    </>
   )
 }
 
