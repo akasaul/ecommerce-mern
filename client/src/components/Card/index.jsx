@@ -35,7 +35,7 @@ const Card = ({id, name, price, desc, imageUrl, category, favs}) => {
   const navigate = useNavigate();
 
   return (
-    <section className='shadow-md rounded-sm cursor-pointer hover:scale-110 duration-300 transition-transform relative' onClick={(e) => {navigate(`/products/${id}`); e.stopPropagation()} }>
+    <section className='shadow-md max-w-[400px] rounded-sm cursor-pointer hover:scale-110 duration-300 transition-transform relative' onClick={(e) => {navigate(`/products/${id}`); e.stopPropagation()} }>
         
         <img className='h-[200px] w-full object-cover rounded-t-sm' src={imageUrl} alt={desc} />
 

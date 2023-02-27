@@ -92,6 +92,19 @@ export const deleteProduct = createAsyncThunk(
     }
 )
 
+// Search Product 
+export const searchProduct = createAsyncThunk(
+    'product/searchProduct',
+    async(keyword, thunkAPI) => {
+        try {
+            return await productAPI.searchProduct(API_URL + '/search?keyword=' + keyword);
+        } catch(error) {
+            console.log(error);
+            const message = error.response.data.msg || 'Failed to add the product';
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+)
 
 const productSlice = createSlice({
     name: 'product',
@@ -135,11 +148,8 @@ const productSlice = createSlice({
 
 
             // get Product states 
+
             .addCase(getProduct.pending, (state) => {
-                // state.isLoading = true;
-                // state.isError = false;
-                // state.isSuccess = false;
-                // state.message = '';
                 state.product.isLoading = true;
                 state.product.isError = false;
                 state.product.isSuccess = false;
@@ -193,6 +203,22 @@ const productSlice = createSlice({
                 state.product.isLoading = false;
                 state.product.isError = true;
                 state.product.message = action.payload;
+            }) 
+
+            // Search Product 
+
+            .addCase(searchProduct.pending, (state) => {
+                state.isLoading = true;
+            }) 
+            .addCase(searchProduct.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.products = action.payload;
+            }) 
+            .addCase(searchProduct.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
             }) 
     }
 })

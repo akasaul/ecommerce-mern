@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import {Appbar, Navbar} from '../components/header'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProducts, reset } from '../app/features/products/productSlice';
+import { getProducts, reset, searchProduct } from '../app/features/products/productSlice';
 import Card from '../components/Card';
 import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
 import { favSelector, getFavs } from '../app/features/favs/favSlice';
 import { MdFavorite, MdOutlineFormatListNumberedRtl, MdShoppingCart } from 'react-icons/md';
-import Footer from '../components/Footer/Footer';
+import { useSearchParams } from 'react-router-dom';
 
-const Home = () => {
+const SearchResults = () => {
 
   const dispatch = useDispatch();
+
+  const [keyword, setKeyword] = useSearchParams();
+ 
+  let word = keyword.get('keyword');
 
   const {products, isError, isSuccess, isLoading, message} = useSelector(state => state.product);
   const {cart} = useSelector(state => state.cart)
@@ -20,20 +24,24 @@ const Home = () => {
   const [inCart, setInCart] = useState(false);
   const [liked, setLiked] = useState(false);
 
+
   useEffect(() => {
     dispatch(reset());
   }, [])
   
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(searchProduct(word));
     dispatch(getFavs());
-  }, []);
+  }, [word]);
+
+  useEffect(() => {
+    dispatch(searchProduct(word));
+  }, [word])
 
   const favs = useSelector(favSelector);
 
   return (
-    <>
-
+    <div>
       <Navbar />
       <Appbar />
 
@@ -75,7 +83,6 @@ const Home = () => {
             .map(({_id, name, description, price, imageUrl, category}) => (
               <Card key={_id} name={name} favs={favs} id={_id} price={price} category={category} desc={description} imageUrl={imageUrl} />
             )) : 
-            !isLoading &&
             <div className='grid place-content-center'>
               <img src="/33.png" className='max-h-[300px]' alt="" />
               <h2 className='text-center font-thin'>Not Items Found</h2>
@@ -83,11 +90,9 @@ const Home = () => {
             </div>
           }
         </Layout>
-
-        <Footer />
-
-      </>
+        
+      </div>
   )
 }
 
-export default Home
+export default SearchResults

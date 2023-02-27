@@ -212,6 +212,7 @@ const searchProduct = asyncHandler(
                 postedBy?.name?.toLowerCase().includes(keyword))
         })
 
+        console.log('search');
         res.json(filteredProducts);
     }
 )

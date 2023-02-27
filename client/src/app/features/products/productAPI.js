@@ -46,5 +46,11 @@ const deleteProduct = async(token, url) => {
 }
 
 
+const searchProduct = async(url) => {
+    const { data } = await axios.get(url);
+    return data;
+}
 
-export default {getProducts, addProduct, getProduct, updateProduct, deleteProduct}
+
+
+export default {getProducts, addProduct, getProduct, searchProduct, updateProduct, deleteProduct}
