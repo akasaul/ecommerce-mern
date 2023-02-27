@@ -4,16 +4,24 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleFav } from '../../app/features/favs/favSlice'
 import { addToCart } from '../../app/features/cart/cartSlice'
+import useAuthStatus from '../../hooks/useAuthStatus'
+import { toast } from 'react-toastify'
 
 const Card = ({id, name, price, desc, imageUrl, category, favs}) => {
   const [like, setLike] = useState(false);
+  
+  const isLoggedIn = useAuthStatus();
 
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
     e.stopPropagation();
-    setLike(like => !like)
-    dispatch(toggleFav(id));
+    if(isLoggedIn) {
+      setLike(like => !like) 
+      dispatch(toggleFav(id));
+    } else {
+      toast.error('Login to add to favorites')
+    }
   }
 
   const handleAddToCart = (e, id, name, qty, price, imageUrl, category, desc) => {
@@ -21,6 +29,7 @@ const Card = ({id, name, price, desc, imageUrl, category, favs}) => {
     const item = {id, name, qty, price, imageUrl, category, desc};
 
     dispatch(addToCart(item));
+    toast.success(name + ' Successfully added to cart');
   }
 
   const navigate = useNavigate();

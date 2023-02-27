@@ -25,9 +25,11 @@ const index = ({total, totalWithTax, payment}) => {
 
     <div className='flex items-center justify-between'>You Save <p>0</p> </div>
     {
-        total !== 0 && !payment ?
-        <a href={`/cart/payment?total=${total}&withvat=${totalWithTax}`} className='bg-orange p-2 font-[500]'>Continue to Payment</a> :
-        <a href={`/cart/payment/finish`} className='bg-orange p-2 font-[500]'>Finish Payment</a> 
+        total === 0  ?
+        <></> : 
+        payment ? 
+        <a href={`/cart/payment/finish`} className='bg-orange p-2 font-[500]'>Finish Payment</a> : 
+        <a href={`/cart/payment?total=${total}&withvat=${totalWithTax}`} className='bg-orange p-2 font-[500]'>Continue to Payment</a> 
     }
 </div>
 

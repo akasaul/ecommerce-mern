@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {  MdClear } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
@@ -23,7 +23,6 @@ const Cart = () => {
   return (
     <>
         <Navbar />
-        <Appbar />
         <Breadcrumb path={path.pathname.split('/')} />
         <div className='flex-col max-w-[1200px] mx-auto gap-5 mt-5'>
 

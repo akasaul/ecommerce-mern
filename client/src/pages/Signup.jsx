@@ -47,6 +47,7 @@ const Signup = () => {
 
         if(isSuccess) {
             toast.success('Successfully Signed up');
+            navigate('/');
         }
 
     }, [isError, isSuccess]);

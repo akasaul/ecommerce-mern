@@ -149,6 +149,8 @@ const updateProduct = asyncHandler(
     }
 )
 
+// Delete Product 
+
 const deleteProduct = asyncHandler(
     async (req, res) => {
         const {_id : id} = req.user; 
@@ -193,4 +195,26 @@ const deleteProduct = asyncHandler(
 )
 
 
-module.exports = {addProduct, getProducts, getProduct, updateProduct, deleteProduct}
+// Search Product 
+
+const searchProduct = asyncHandler(
+    async (req, res) => {
+        let {keyword} = req.query;
+        keyword = keyword.toLowerCase().trim();
+        const products = await  Product.find().populate('postedBy', '-password -cart -token');
+
+
+        const filteredProducts = products.filter(({name, description, category, postedBy})=> {
+            return name.toLowerCase().includes(keyword) ||  
+                description.toLowerCase().includes(keyword) || 
+                category.toLowerCase().includes(keyword) ||
+                (postedBy !== null &&
+                postedBy?.name?.toLowerCase().includes(keyword))
+        })
+
+        res.json(filteredProducts);
+    }
+)
+
+
+module.exports = {addProduct, getProducts, getProduct, updateProduct, deleteProduct, searchProduct}

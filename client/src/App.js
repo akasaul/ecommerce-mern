@@ -12,8 +12,6 @@ import Cart from './pages/Cart';
 import Payment from './pages/Payment';
 import FinishPayment from './pages/FinishPayment';
 
-
-
 function App() {
   return (
     <>
@@ -27,6 +25,7 @@ function App() {
         <Route path='/product/update/:productId' element={<UpdateProduct />} />
         <Route path='/cart/payment' element={<Payment />} />
         <Route path='/cart/payment/finish' element={<FinishPayment />} />
+        <Route path='/search' element={<SearchResult />} />
       </Routes>
       <ToastContainer />
     </>

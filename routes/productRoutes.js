@@ -3,7 +3,7 @@ const router = express.Router();
 const protect = require('../middleware/protect');
 const {body} = require('express-validator')
 
-const { addProduct, getProducts, getProduct, updateProduct, getCart, addToCart, deleteProduct} = require('../controller/productController');
+const { addProduct, getProducts, getProduct, updateProduct, deleteProduct, searchProduct} = require('../controller/productController');
 
 router.post('/add-product', [
     body('name').isLength({min: 5}).withMessage('Name Must be at least 5 characters').isAlphanumeric('en-US', {ignore: ' '}).withMessage('Name cant contain special characters'),
@@ -13,6 +13,8 @@ router.post('/add-product', [
     body('qty').isNumeric().withMessage('Quantity Should be in Numbers').isFloat({min: 1}).withMessage('Price cant be less that 0$'),
     body('imageUrl').isURL().withMessage('Enter a valid URL')
 ], protect, addProduct);
+
+router.get('/search', searchProduct);
 
 router.get('/', getProducts);
 
@@ -26,6 +28,7 @@ router.route('/:prodId').get(getProduct).put([
     body('qty').isNumeric().withMessage('Quantity Should be in Numbers').isFloat({min: 0}).withMessage('Price cant be less that 0$'),
     body('imageUrl').isURL().withMessage('Enter a valid URL')
 ], protect, updateProduct);
+
 
 
 module.exports = router;

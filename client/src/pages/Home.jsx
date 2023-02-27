@@ -5,9 +5,8 @@ import { getProducts, reset } from '../app/features/products/productSlice';
 import Card from '../components/Card';
 import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
-import useAuthStatus from '../hooks/useAuthStatus';
 import { favSelector, getFavs } from '../app/features/favs/favSlice';
-import { MdFavorite, MdFilterAlt, MdOutlineFormatListNumberedRtl, MdShoppingCart } from 'react-icons/md';
+import { MdFavorite, MdOutlineFormatListNumberedRtl, MdShoppingCart } from 'react-icons/md';
 
 const Home = () => {
 
@@ -36,15 +35,19 @@ const Home = () => {
       <Navbar />
       <Appbar />
 
-      <section className='max-w-[1000px] font-thin flex items-center gap-3 border px-5 mt-3 mx-auto'>
-        <p className='flex items-center gap-1'>Filters <MdOutlineFormatListNumberedRtl /> </p>
-        <p>Price</p>
-        <input type="range" name="price" value={priceRange} onChange={e => setPriceRange(e.target.value)} id="priceRange" min={0} step={50} max={1000} className='text-orange' />
-        &lt;= {priceRange}
-        <p className='flex items-center gap-1'>In Cart <MdShoppingCart /> </p>
-        <input type="checkbox" name="incart" value={inCart} onChange={() => setInCart(prev => !prev)} />
-        <p className='flex items-center gap-1'>Liked <MdFavorite /> </p>
-        <input type="checkbox" name="liked" value={liked} onChange={() => setLiked(prev => !prev)} />
+      <section className='max-w-[1000px] flex-col sm:flex-row font-thin flex items-center justify-center gap-3 bg-accent p-2 px-5 mt-3 mx-auto'>
+        <div className='flex items-center gap-3'>
+          <p className='flex items-center gap-1'>Filters <MdOutlineFormatListNumberedRtl /> </p>
+          <p>Price</p>
+          <input type="range" name="price" value={priceRange} onChange={e => setPriceRange(e.target.value)} id="priceRange" min={0} step={50} max={1000} className='text-orange' />
+          &lt; {priceRange}
+        </div>
+        <div className='flex items-center gap-3'>
+          <p className='flex items-center gap-1'>In Cart <MdShoppingCart /> </p>
+          <input type="checkbox" name="incart" value={inCart} onChange={() => setInCart(prev => !prev)} />
+          <p className='flex items-center gap-1'>Liked <MdFavorite /> </p>
+          <input type="checkbox" name="liked" value={liked} onChange={() => setLiked(prev => !prev)} />
+        </div>
       </section>
       
        {

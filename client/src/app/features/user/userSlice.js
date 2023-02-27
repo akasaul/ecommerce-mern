@@ -39,6 +39,9 @@ const userSlice = createSlice({
         message: ''
     },
     reducers: {
+        logout: () => {
+            localStorage.removeItem('user');
+        }
     },
     extraReducers: (builder) => {
         builder

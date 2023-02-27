@@ -3,17 +3,20 @@ import { useState } from 'react';
 import {MdShoppingBasket, MdExpandMore, MdSearch, MdAccountCircle, MdOutlineShoppingCart, MdMenu, MdClose, MdQuestionAnswer, MdShop, MdFoodBank, MdPhone, MdPhoneAndroid, MdKitchen, MdChair, MdPages, MdList, MdExpandLess} from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategory, getProducts } from '../../app/features/products/productSlice';
+import { useNavigate } from 'react-router-dom'
 import useAuthStatus from '../../hooks/useAuthStatus';
 
 const Navbar = () => {
     const [show, setShow] = useState(false);
     const [showCategoryDesktop, setShowCategoryDesktop] = useState(false);
     const [showCategoryMobile, setShowCategoryMobile] = useState(false);
-
+    const [keyword, setKeyword] = useState('');
 
     const isAuth = useAuthStatus();
     const {cart} = useSelector(state => state.cart);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
 
 
     const onClickDesktop = async (e) => {
@@ -30,14 +33,20 @@ const Navbar = () => {
         setShowCategoryMobile(false);
     }
 
+    const onSubmit = async (e) => {
+        navigate(`/search?keyword=${keyword}`);
+    }
+
     return (
         
     <div className='max-w-[1200px] border-b border-secondary  mx-auto h-16 flex justify-between px-4 items-center'>
         <a href='/' className='flex flex-[0.2] items-center gap-3 text-md text-primary'>
             <MdShoppingBasket />
-            Gebeya
+            Shop
         </a>
 
+
+        {/* Desktop Menu  */}
         <ul className="center flex-[0.4] hidden md:flex items-center gap-4">
             <li className='relative'>
                 <button className='flex items-end gap-1' onClick={() => setShowCategoryDesktop(prev => !prev)}>
@@ -75,10 +84,10 @@ const Navbar = () => {
 
         <div className="right flex-[0.4] hidden md:flex items-center gap-4">
 
-            <div className='bg-accent flex items-center px-2 rounded-[2rem]'>
-                <input placeholder='Search Product' className='outline-none p-2 bg-accent max-w-[100px]' />
+            <form onSubmit={onSubmit} className='bg-accent flex items-center px-2 rounded-[2rem]'>
+                <input placeholder='Search Product' className='outline-none p-2 bg-accent max-w-[100px]' value={keyword} onChange={e => setKeyword(e.target.value)} />
                 <MdSearch className='text-md mr-2' />
-            </div>
+            </form>
 
             <ul className='flex items-center gap-4'>
 
