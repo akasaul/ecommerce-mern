@@ -85,8 +85,8 @@ const Home = () => {
                       (inCart ? cart?.map(item => item.id)?.includes(_id) : true) &&
                       (liked ? favs?.includes(_id) : true) 
             })
-            .map(({_id, name, description, price, imageUrl, category}) => (
-              <Card key={_id} name={name} favs={favs} id={_id} price={price} category={category} desc={description} imageUrl={imageUrl} />
+            .map(({_id, name, description, price, imageUrl, category, rating}) => (
+              <Card key={_id} name={name} favs={favs} id={_id} price={price} category={category} desc={description} imageUrl={imageUrl} rating={rating} />
             )) : 
             !isLoading &&
             <div className='grid place-content-center'>
