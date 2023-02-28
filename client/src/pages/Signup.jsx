@@ -109,9 +109,9 @@ const Signup = () => {
                 Log in
             </button>    
 
-            <Footer />        
-
         </form>
+        
+        <Footer />        
     </>
   )
 }

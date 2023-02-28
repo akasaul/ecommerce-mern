@@ -243,7 +243,7 @@ const rateProduct = asyncHandler(
             throw new Error(errors.array()[0].msg);
         }
 
-        const product = await Product.findById(prodId);
+        const product = await Product.findById(prodId).populate('postedBy');
 
         // Check if product is found 
 

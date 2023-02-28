@@ -171,13 +171,11 @@ const getUser = asyncHandler (
 
 const getMe = asyncHandler (
     async (req, res) => {
-        const { userId } = req.user;
-
-        res.json('hi')
+        const {email : userEmail} = req.user;
 
         // Get the User 
 
-        const user = await User.findById(userId);
+        const user = await User.findOne({email: userEmail});
 
         // Check if exists 
 
@@ -186,14 +184,13 @@ const getMe = asyncHandler (
             throw new Error('User Not Found');
         } 
 
-        const {_id, name, email, favs } = user;
+        const {_id, name, email, favs, token } = user;
         
         // Get Products Posted By User 
 
-
         const products = await Product.find({postedBy : _id}).exec();
         
-        res.json({user: {id: _id, name, email, favs}, products});
+        res.json({user: {id: _id, name, email, favs, token}, products});
     }
 )
 

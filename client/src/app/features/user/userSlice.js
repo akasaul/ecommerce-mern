@@ -41,6 +41,22 @@ export const getUser = createAsyncThunk(
     }
 )
 
+
+// Get Me 
+export const getMe = createAsyncThunk(
+    'user/getMe', 
+    async (_, thunkAPI) => {
+        try {
+            const token = thunkAPI.getState().user.user.token;
+            return await userAPI.getMe(token);
+        } catch(err) {
+            console.log(err);
+            const message = err.response.data.msg;
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+)
+
 // User slice 
 const userSlice = createSlice({
     name: 'user',
@@ -52,8 +68,9 @@ const userSlice = createSlice({
         message: ''
     },
     reducers: {
-        logout: () => {
+        logout: (state) => {
             localStorage.removeItem('user');
+            state.user = undefined;
         }
     },
     extraReducers: (builder) => {
@@ -121,7 +138,27 @@ const userSlice = createSlice({
             })
 
 
+            // Get Me 
+            .addCase(getMe.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+                state.isSuccess = false;
+                state.message = '';
+            })
+            .addCase(getMe.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.user = action.payload;
+            })
+            .addCase(getMe.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+
     }
 });
 
+
+export const {logout} = userSlice.actions;
 export default userSlice.reducer;

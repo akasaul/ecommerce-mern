@@ -20,4 +20,17 @@ const getUser = async (id) => {
     return res.data;
 }
 
-export default {signup, login, getUser}
+// Get User 
+const getMe = async (token) => {
+    const config = {
+        headers: {
+        Authorization: 'Bearer ' + token
+    }
+}
+
+    const { data } = await axios.get('/user/profile/me', config);
+    return data;
+}
+
+
+export default {signup, login, getUser, getMe}

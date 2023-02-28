@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../app/features/user/userSlice';
 import { toast } from 'react-toastify'
 import Breadcrumb from '../components/Breadcrumb';
+import Footer from '../components/Footer/Footer';
 
 const Login = () => {
 
@@ -90,6 +91,7 @@ const Login = () => {
             </button>            
 
         </form>
+        <Footer />
     </>
   )
 }

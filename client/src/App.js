@@ -14,6 +14,7 @@ import FinishPayment from './pages/FinishPayment';
 import SearchResults from './pages/SearchResults';
 import LandingPage from './pages/LandingPage';
 import Profile from './pages/Profile';
+import ProfileMe from './pages/ProfileMe';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path='/cart/payment/finish' element={<FinishPayment />} />
         <Route path='/search' element={<SearchResults />} />
         <Route path='/users/:prodId' element={<Profile />} />
+        <Route path='/users/me' element={<ProfileMe />} />
       </Routes>
       <ToastContainer />
     </>

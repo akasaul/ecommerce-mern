@@ -52,7 +52,6 @@ const searchProduct = async(url) => {
 }
 
 
-
 const rateProduct = async(value, token, url) => {
     const config = {
             headers: {

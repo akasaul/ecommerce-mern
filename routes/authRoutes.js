@@ -11,7 +11,7 @@ router.post('/login',[
 
 // signup route 
 router.post('/signup', [
-    body('name').isAlphanumeric().withMessage('Name Shouldn\'t contain characters'),
+    body('name').isAlphanumeric(['en-US'], {ignore: ' '}).withMessage('Name Shouldn\'t contain characters'),
     body('email').isEmail().withMessage('Enter a valid email'),
     body('password').isLength({ min: 5 }).withMessage('Password should be more than 5 characters')
 ], signUp)

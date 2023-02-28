@@ -111,16 +111,14 @@ export const rateProduct = createAsyncThunk(
     async(productData, thunkAPI) => {
         try {
             const {id, value} = productData;
-            const token = thunkAPI.getState().user.user?.token;
+            const token = thunkAPI.getState().user.user?.token || thunkAPI.getState().user.user?.user.token;
             return await productAPI.rateProduct(value, token, API_URL + '/rate/' + id);
         } catch(error) {
-            console.log(error);
             const message = error.response.data.msg || 'Failed to add the product';
             return thunkAPI.rejectWithValue(message);
         }
     }
 )
-
 
 const productSlice = createSlice({
     name: 'product',
@@ -241,7 +239,6 @@ const productSlice = createSlice({
 
             // Rate product 
             .addCase(rateProduct.fulfilled, (state, action) => {
-                console.log(action.payload);
                 state.product.product =  action.payload;
             }) 
     }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Appbar, Navbar } from '../components/header'
 import Footer from '../components/Footer/Footer';
-import { MdAccountCircle, MdEmail, MdExpandLess, MdExpandMore } from 'react-icons/md';
+import { MdAccountCircle, MdEmail, MdExpandLess, MdExpandMore, MdLogout } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import {getUser} from '../app/features/user/userSlice';
