@@ -53,4 +53,17 @@ const searchProduct = async(url) => {
 
 
 
-export default {getProducts, addProduct, getProduct, searchProduct, updateProduct, deleteProduct}
+const rateProduct = async(value, token, url) => {
+    const config = {
+            headers: {
+            Authorization: 'Bearer ' + token
+        }
+    }
+    console.log({value});
+    const { data } = await axios.post(url, {value}, config);
+    return data;
+}
+
+
+
+export default {getProducts, addProduct, getProduct, searchProduct, updateProduct, deleteProduct, rateProduct}

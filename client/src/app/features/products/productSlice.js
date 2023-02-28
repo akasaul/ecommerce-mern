@@ -99,12 +99,28 @@ export const searchProduct = createAsyncThunk(
         try {
             return await productAPI.searchProduct(API_URL + '/search?keyword=' + keyword);
         } catch(error) {
+            const message = error.response.data.msg || 'Failed to add the product';
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+)
+
+// Rate product 
+export const rateProduct = createAsyncThunk(
+    'product/rateProduct',
+    async(productData, thunkAPI) => {
+        try {
+            const {id, value} = productData;
+            const token = thunkAPI.getState().user.user?.token;
+            return await productAPI.rateProduct(value, token, API_URL + '/rate/' + id);
+        } catch(error) {
             console.log(error);
             const message = error.response.data.msg || 'Failed to add the product';
             return thunkAPI.rejectWithValue(message);
         }
     }
 )
+
 
 const productSlice = createSlice({
     name: 'product',
@@ -219,6 +235,14 @@ const productSlice = createSlice({
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
+            }) 
+
+
+
+            // Rate product 
+            .addCase(rateProduct.fulfilled, (state, action) => {
+                console.log(action.payload);
+                state.product.product =  action.payload;
             }) 
     }
 })

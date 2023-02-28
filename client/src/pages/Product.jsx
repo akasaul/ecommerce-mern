@@ -12,6 +12,8 @@ import { addToCart } from '../app/features/cart/cartSlice'
 import Footer from '../components/Footer/Footer'
 import {toast} from 'react-toastify'
 import ProductNotFound from './ProductNotFound'
+import { rateProduct } from '../app/features/products/productSlice'
+import useAuthStatus from '../hooks/useAuthStatus'
 
 const checkMatch = (email, email2) => {
     return email === email2;
@@ -34,7 +36,7 @@ const Product = () => {
     const [count, setCount] = useState(1);
 
     
-    const {_id, name, description, price, imageUrl, category, postedBy} = useSelector(productSelector);
+    const {_id, name, description, price, imageUrl, category, postedBy, rating} = useSelector(productSelector);
 
    
     const {isLoading, isError, isSuccess, message} = useSelector(state => state.product.product);
@@ -47,6 +49,7 @@ const Product = () => {
     const userName = postedBy?.name;
     const email = postedBy?.email;
     const [modalOpen, setModalOpen] = useState(false);
+    const isLoggedIn = useAuthStatus();
 
 
     useEffect(() => {
@@ -80,6 +83,15 @@ const Product = () => {
         navigate('/cart');
     }
 
+
+    const handleRating = (rate) => {
+        isLoggedIn ?
+            dispatch(rateProduct({id, value: rate})) : 
+        toast.error('You Should be logged in to rate');
+        console.log(rate, id);
+    }
+
+
     return (
     <>
         <Appbar />
@@ -105,7 +117,13 @@ const Product = () => {
 
                 <p className='flex items-center gap-2'>Category <MdImage /> {category?.slice(0, 1)?.toUpperCase() + category?.slice(1)} </p>
 
-                <Rating emptyStyle={{ display: "flex" }} size={24} fillStyle={{ display: "-webkit-inline-box" }} />
+                 {
+                    isSuccess &&
+                        <>
+                            <Rating emptyStyle={{ display: "flex" }} initialValue={rating.length !== 0 ? rating.map(rate => rate.value).reduce((total, cur) => total + cur, 0) / rating.length : 0} size={24} fillStyle={{ display: "-webkit-inline-box" }} onClick={handleRating} />
+                            <p className='flex items-center gap-2 font-thin'><MdAccountCircle /> ({rating.length}) Reviews</p>
+                        </>
+                 }
 
                 <div className='flex gap-2 items-center'>
                     <article className='gap-2 p-3 font-[300] w-1/2 border-fill my-2 flex items-center right-[0px]'>

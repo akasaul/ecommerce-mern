@@ -1,7 +1,10 @@
 const asyncHandler = require('express-async-handler');
 const Product = require('../model/Product');
 const {validationResult} = require('express-validator');
+const { Schema } = require('mongoose');
 
+
+// Add Product 
 const addProduct = asyncHandler(
     async (req, res) => {
         const {name, price, desc, category, qty, imageUrl } = req.body;
@@ -36,7 +39,7 @@ const addProduct = asyncHandler(
     }
 )  
 
-
+// Get Products 
 const getProducts = asyncHandler(
     async (req, res) => {
         const currentPage = Number(req.query.page);
@@ -60,6 +63,7 @@ const getProducts = asyncHandler(
     }
 )
 
+// Get Product 
 const getProduct = asyncHandler(
     async (req, res) => {
         const {prodId} = req.params;
@@ -76,6 +80,7 @@ const getProduct = asyncHandler(
     }
 )
 
+// Update Product 
 const updateProduct = asyncHandler(
     async (req, res) => {
         const {name, desc, price, qty, category, imageUrl} = req.body;
@@ -151,7 +156,6 @@ const updateProduct = asyncHandler(
 )
 
 // Delete Product 
-
 const deleteProduct = asyncHandler(
     async (req, res) => {
         const {_id : id} = req.user; 
@@ -164,12 +168,14 @@ const deleteProduct = asyncHandler(
         try {
             product = await Product.findById(prodId);
         } catch(err) {
+            res.status(404);
             throw new Error('Failed to fetch the product');
         }
 
         // Product not Found 
 
         if(!product) {
+            res.status(404);
             throw new Error('Product Not Found');
         }
 
@@ -195,9 +201,7 @@ const deleteProduct = asyncHandler(
     }
 )
 
-
 // Search Product 
-
 const searchProduct = asyncHandler(
     async (req, res) => {
         let {keyword} = req.query;
@@ -217,5 +221,52 @@ const searchProduct = asyncHandler(
     }
 )
 
+// Rate Product 
+const rateProduct = asyncHandler(
+    async (req, res) => {
+        const { prodId } = req.params;
+        const { value } = req.body;
+        const {_id : userId} = req.user;
+        const errors = validationResult(req);
 
-module.exports = {addProduct, getProducts, getProduct, updateProduct, deleteProduct, searchProduct}
+        // No rating provided 
+
+        if(!value) {
+            res.status(400);
+            throw new Error('Rating Should be Provided');
+        }
+
+        // When Validation fails
+
+        if(!errors.isEmpty()) {
+            res.status(400);
+            throw new Error(errors.array()[0].msg);
+        }
+
+        const product = await Product.findById(prodId);
+
+        // Check if product is found 
+
+        if(!product) {
+            res.status(404);
+            throw new Error('Item Not Found');
+        }
+
+        // check if user already rated 
+
+        const rateIndex =  product.rating.findIndex((rate) => rate?.userId.toString() === userId.toString())
+
+        if(rateIndex === -1) {
+            product.rating.push({userId, prodId, value});
+            await product.save();
+        } else {
+            product.rating[rateIndex].value = value;
+            await product.save();
+        }
+
+        res.json(product);
+    }
+)
+
+
+module.exports = {addProduct, getProducts, getProduct, updateProduct, deleteProduct, searchProduct, rateProduct}

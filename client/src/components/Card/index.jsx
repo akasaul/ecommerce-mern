@@ -7,7 +7,7 @@ import { addToCart } from '../../app/features/cart/cartSlice'
 import useAuthStatus from '../../hooks/useAuthStatus'
 import { toast } from 'react-toastify'
 
-const Card = ({id, name, price, desc, imageUrl, category, favs}) => {
+const Card = ({id, name, price, desc, imageUrl, category, favs, rating}) => {
   const [like, setLike] = useState(false);
   
   const isLoggedIn = useAuthStatus();

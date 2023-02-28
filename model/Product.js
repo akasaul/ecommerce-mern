@@ -13,10 +13,28 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please provide price']
     },
-    rating: {
-        type: Number,
-        default: 0
-    },
+    // rating: {
+    //     type: Number,
+    //     default: 0
+    // },
+    rating: [
+        {
+            prodId: {
+                type: mongoose.Schema.Types.ObjectId,
+                required: [true, 'Please Insert Id'],
+                ref: 'Product',
+            },
+            value: {
+                type: Number,
+                required: true
+            },
+            userId: {
+                type: mongoose.Schema.Types.ObjectId,
+                required: true,
+                ref: 'User'
+            }
+        }
+    ],    
     category: {
         type: String,
         enum: ['food', 'other', 'instrument', 'cloth', 'furniture', 'electronics'],

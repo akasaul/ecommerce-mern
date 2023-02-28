@@ -6,7 +6,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' })
 
 
-const { addProduct, getProducts, getProduct, updateProduct, deleteProduct, searchProduct} = require('../controller/productController');
+const { addProduct, getProducts, getProduct, updateProduct, deleteProduct, searchProduct, rateProduct} = require('../controller/productController');
 
 router.post('/add-product', [
     body('name').isLength({min: 5}).withMessage('Name Must be at least 5 characters').isAlphanumeric('en-US', {ignore: ' '}).withMessage('Name cant contain special characters'),
@@ -31,6 +31,9 @@ router.route('/:prodId').get(getProduct).put([
     body('qty').isNumeric().withMessage('Quantity Should be in Numbers').isFloat({min: 0}).withMessage('Price cant be less that 0$'),
     body('imageUrl').isURL().withMessage('Enter a valid URL')
 ], protect, updateProduct);
+
+
+router.post('/rate/:prodId', body('value').isInt({min: 1, max: 5}).withMessage('rating Should be between 1 and 5') ,protect, rateProduct);
 
 
 
