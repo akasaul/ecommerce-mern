@@ -48,7 +48,7 @@ const Signup = () => {
 
         if(isSuccess) {
             toast.success('Successfully Signed up');
-            navigate('/');
+            navigate('/shop');
         }
 
     }, [isError, isSuccess]);

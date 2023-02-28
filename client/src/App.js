@@ -12,12 +12,15 @@ import Cart from './pages/Cart';
 import Payment from './pages/Payment';
 import FinishPayment from './pages/FinishPayment';
 import SearchResults from './pages/SearchResults';
+import LandingPage from './pages/LandingPage';
+import Profile from './pages/Profile';
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/shop' element={<Home />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/cart' element={<Cart />} />
@@ -27,6 +30,7 @@ function App() {
         <Route path='/cart/payment' element={<Payment />} />
         <Route path='/cart/payment/finish' element={<FinishPayment />} />
         <Route path='/search' element={<SearchResults />} />
+        <Route path='/users/:prodId' element={<Profile />} />
       </Routes>
       <ToastContainer />
     </>

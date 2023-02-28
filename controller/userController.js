@@ -136,8 +136,6 @@ const toggleFavorite = asyncHandler(
 
 })
 
-
-
 const getFavs = asyncHandler( 
     async (req, res) => {
     const user = req.user;
@@ -145,11 +143,65 @@ const getFavs = asyncHandler(
 })
 
 
+const getUser = asyncHandler (
+    async (req, res) => {
+        const { userId } = req.params;
 
+        // Get the User 
+
+        const user = await User.findById(userId);
+
+        // Check if exists 
+
+        if(!user) {
+            res.status(400);
+            throw new Error('User Not Found');
+        } 
+
+        const {_id, name, email, favs } = user;
+        
+        // Get Products Posted By User 
+
+
+        const products = await Product.find({postedBy : _id}).exec();
+        
+        res.json({user: {id: _id, name, email, favs}, products});
+    }
+)
+
+const getMe = asyncHandler (
+    async (req, res) => {
+        const { userId } = req.user;
+
+        res.json('hi')
+
+        // Get the User 
+
+        const user = await User.findById(userId);
+
+        // Check if exists 
+
+        if(!user) {
+            res.status(400);
+            throw new Error('User Not Found');
+        } 
+
+        const {_id, name, email, favs } = user;
+        
+        // Get Products Posted By User 
+
+
+        const products = await Product.find({postedBy : _id}).exec();
+        
+        res.json({user: {id: _id, name, email, favs}, products});
+    }
+)
 
 module.exports = {
     addToCart,
     removeFromCart,
     toggleFavorite,
-    getFavs
+    getFavs,
+    getUser,
+    getMe
 }

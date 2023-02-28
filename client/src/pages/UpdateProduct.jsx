@@ -62,7 +62,7 @@ const UpdateProduct = () => {
         
         await dispatch(updateProduct({id, ...formData}));
 
-        navigate('/');
+        navigate('/shop');
     }
 
     useEffect(() => {

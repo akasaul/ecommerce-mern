@@ -81,9 +81,9 @@ const SearchResults = () => {
                       (inCart ? cart?.map(item => item.id)?.includes(_id) : true) &&
                       (liked ? favs?.includes(_id) : true) 
             })
-            .map(({_id, name, description, price, imageUrl, category}) => (
-              <Card key={_id} name={name} favs={favs} id={_id} price={price} category={category} desc={description} imageUrl={imageUrl} />
-            )) : 
+            .map(({_id, name, description, price, imageUrl, category, rating}) => (
+              <Card key={_id} name={name} favs={favs} id={_id} price={price} category={category} rating={rating} desc={description} imageUrl={imageUrl} />
+            )) :  
               !isLoading &&
             <div className='grid place-content-center'>
               <img src="/33.png" className='max-h-[300px]' alt="" />

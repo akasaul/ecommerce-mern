@@ -6,12 +6,12 @@ const index = ({total, totalWithTax, payment}) => {
     <div className='p-6 mt-6 sm:mt-0 flex flex-col gap-4 h-[300px] justify-center font-thin flex-[0.3] bg-[#F0F0F0]'>
     <div className='flex justify-between min-w-[250px]'>
         <p>Subtotal</p>
-        <p>${total}</p>
+        <p>${total.toFixed(2)}</p>
     </div>
     
     <div className='flex justify-between min-w-[250px]'>
         <p>VAT included</p>
-        <p>$ {totalWithTax}</p>
+        <p>$ {totalWithTax.toFixed(2)}</p>
     </div>
 
     <p className='flex items-center gap-2'>Add Promo code
@@ -20,10 +20,10 @@ const index = ({total, totalWithTax, payment}) => {
     
     <div className='flex items-center justify-between'>
         <h2 className='font-[500] text-md'>Total</h2>
-        <h2 className='font-[500] text-md'>$ {total + totalWithTax}</h2>
+        <h2 className='font-[500] text-md'>$ {(total + totalWithTax).toFixed(2)}</h2>
     </div>
 
-    <div className='flex items-center justify-between'>You Save <p>0</p> </div>
+    <div className='flex items-center justify-between'>You Save <p>0.00</p> </div>
     {
         total === 0  ?
         <></> : 

@@ -14,4 +14,10 @@ const login = async (userData) => {
     return res.data;
 }
 
-export default {signup, login}
+// Get User 
+const getUser = async (id) => {
+    const res = await axios.get('/user/profiles/' + id);
+    return res.data;
+}
+
+export default {signup, login, getUser}

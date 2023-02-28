@@ -53,7 +53,7 @@ const AddProduct = () => {
         if(isSuccess) {
             toast.success('Added the product successfully')
             dispatch(reset());
-            navigate('/');
+            navigate('/shop');
         }
         
     }, [isError, isSuccess])

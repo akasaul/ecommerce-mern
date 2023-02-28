@@ -27,8 +27,21 @@ export const login = createAsyncThunk(
     }   
 )
 
-// User slice 
+// Get User 
+export const getUser = createAsyncThunk(
+    'user/getuser', 
+    async (id, thunkAPI) => {
+        try {
+            return await userAPI.getUser(id);
+        } catch(err) {
+            console.log(err);
+            const message = err.response.data.msg;
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+)
 
+// User slice 
 const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -80,6 +93,27 @@ const userSlice = createSlice({
                 localStorage.setItem('user', JSON.stringify(action.payload));
             })
             .addCase(login.rejected, (state, action) => {
+                state.user = {};
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+
+
+            // Get user states 
+            .addCase(getUser.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+                state.isSuccess = false;
+                state.message = '';
+            })
+            .addCase(getUser.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.user = action.payload;
+                localStorage.setItem('user', JSON.stringify(action.payload));
+            })
+            .addCase(getUser.rejected, (state, action) => {
                 state.user = {};
                 state.isLoading = false;
                 state.isError = true;

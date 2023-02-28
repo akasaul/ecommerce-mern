@@ -45,7 +45,7 @@ const Login = () => {
 
         if(isSuccess) {
             toast.success('Successfully Logged In');
-            navigate('/');
+            navigate('/shop');
         }
 
     }, [isError, isSuccess]);
@@ -76,7 +76,7 @@ const Login = () => {
             <div className='flex flex-col gap-2 relative'>
                 <label className='text-xs '>Password</label>
                 <input className='input rounded-sm' type={!showPassword ? 'password' : 'text'} name='password' value={password} onChange={onChange} />
-                <button className='absolute bottom-0 right-[10px] text-fill hover:text-[#000]' onMouseDown={() => setShowPassword(true)} onMouseUp={() => setShowPassword(false)}>SEE</button>
+                <span className='absolute bottom-0 right-[10px] cursor-pointer text-fill hover:text-[#000]' onMouseDown={() => setShowPassword(true)} onMouseUp={() => setShowPassword(false)}>SEE</span>
             </div>
 
             <button className='bg-orange py-3 mt-3 relative' type='submit'>

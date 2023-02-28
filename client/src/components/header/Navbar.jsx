@@ -92,7 +92,7 @@ const Navbar = () => {
             <ul className='flex items-center gap-4'>
 
                 <li>
-                    <a href={isAuth ? '/profile' : '/signup'} className='flex items-center gap-2'>
+                    <a href={isAuth ? '/users/me' : '/signup'} className='flex items-center gap-2'>
                         <MdAccountCircle className='text-md' /> Account
                     </a>
                 </li>
@@ -157,7 +157,7 @@ const Navbar = () => {
             </li>
 
             <li>
-                <a href={isAuth ? '/profile' : '/signup'} className='flex items-center gap-1 py-2'>
+                <a href={isAuth ? '/users/me' : '/signup'} className='flex items-center gap-1 py-2'>
                     <MdAccountCircle className='text-md' /> Account
                 </a>
             </li>

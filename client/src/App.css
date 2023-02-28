@@ -116,10 +116,22 @@ input[type="checkbox"] {
   }
 
 
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
 @media (min-width: 550px) {
     .grid-layout { 
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));    }
+
+      
+    .profile-grid {
+      grid-template-columns: 1fr 1fr;
     }
+
+
+    }
+
 
 body {
     font-family: 'Roboto', sans-serif;

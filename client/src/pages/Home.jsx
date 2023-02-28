@@ -47,7 +47,7 @@ const Home = () => {
       <Appbar />
       <Navbar />
 
-      {/* Filter        */}
+      {/* Filter */}
 
       <section className='max-w-[1000px] flex-col sm:flex-row font-thin flex items-center justify-center gap-3 bg-accent p-2 px-5 mt-3 mx-auto'>
    

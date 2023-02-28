@@ -72,7 +72,7 @@ const Product = () => {
         dispatch(deleteProduct(id));
         setModalOpen(false);
         toast.error(`Successfully Deleted ${name}`)
-        navigate('/');
+        navigate('/shop');
     }
 
 
@@ -133,13 +133,13 @@ const Product = () => {
                                 <div className='flex items-center gap-2'>
                                     <MdAccountCircle className='text-[2rem]' />
                                     <a href={`/users/${userId}`} className='h-[30px] bg-orange w-[30px] rounded-[50%] font-[500] grid place-content-center'>{userName?.slice(0, 1).toUpperCase()}</a>
-                                    <button className='cursor-pointer hover:underline'>
+                                    <a href={`/users/${userId}`} className='cursor-pointer hover:underline'>
                                         {
                                             checkMatch(user?.email, postedBy?.email) ?
                                                 'You': 
                                                 '@' +  userName 
                                         } 
-                                    </button>
+                                    </a>
                                 </div>
                                 :
                                 <div className='flex items-center gap-2'>
