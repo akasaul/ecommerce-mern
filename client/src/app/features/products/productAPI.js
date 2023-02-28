@@ -28,10 +28,8 @@ const updateProduct = async(productData, token, url) => {
         }
     }
     const { data } = await axios.put(url, productData, config);
-    console.log(data);
     return data;
 }
-
 
 
 const deleteProduct = async(token, url) => {

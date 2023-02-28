@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import {getMe, logout} from '../app/features/user/userSlice';
 import Spinner from '../components/Spinner'
 import ProfileCard from '../components/ProfileCard';
+import BreadCrumb from '../components/Breadcrumb';
 
 const ProfileMe = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const ProfileMe = () => {
     <>
       <Appbar /> 
       <Navbar />
+      <BreadCrumb path={pathname.split('/').slice(0, 3)} />
 
       <section className='min-h-[50vh] max-w-[500px] mx-auto'>
   
@@ -58,7 +60,6 @@ const ProfileMe = () => {
                 <p>Your Products</p> : 
                 <p>You Haven't Posted Any Products</p>
             }
-
 
             <div className='w-full profile-grid grid gap-5' style={{
             }}>

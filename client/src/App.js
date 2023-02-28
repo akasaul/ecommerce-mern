@@ -15,6 +15,7 @@ import SearchResults from './pages/SearchResults';
 import LandingPage from './pages/LandingPage';
 import Profile from './pages/Profile';
 import ProfileMe from './pages/ProfileMe';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
@@ -25,14 +26,29 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/add-product' element={<AddProducts />} />
+
+        <Route path='/add-product' element={<PrivateRoute />}>
+          <Route path='/add-product' element={<AddProducts />} />
+        </Route>
+        
         <Route path='/products/:productId' element={<Product />} />
-        <Route path='/product/update/:productId' element={<UpdateProduct />} />
+
+        <Route path='/product/update/:productId' element={<PrivateRoute />}>
+          <Route path='/product/update/:productId' element={<UpdateProduct />} />
+        </Route>
+
         <Route path='/cart/payment' element={<Payment />} />
         <Route path='/cart/payment/finish' element={<FinishPayment />} />
         <Route path='/search' element={<SearchResults />} />
-        <Route path='/users/:prodId' element={<Profile />} />
-        <Route path='/users/me' element={<ProfileMe />} />
+
+
+        <Route path='/profile/me' element={<PrivateRoute />}>
+          <Route path='/profile/me' element={<ProfileMe />} />
+        </Route>
+
+        <Route path='/profiles/:userId' element={<PrivateRoute />}> 
+          <Route path='/profiles/:userId' element={<Profile />} />
+        </Route> 
       </Routes>
       <ToastContainer />
     </>

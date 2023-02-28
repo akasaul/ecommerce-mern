@@ -24,7 +24,6 @@ const Product = () => {
     const {pathname} = useLocation();
     const id = pathname.split('/')[2];
 
-
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -77,9 +76,9 @@ const Product = () => {
 
 
     const handleclick = ({id, name, count, price, imageUrl, category, description}) => {
-        console.log('add to cart');
         const item = {id, name, price, imageUrl, category, desc: description, qty: count};
         dispatch(addToCart(item));
+        toast.success(`Added ${name} X ${count} to Cart`)
         navigate('/cart');
     }
 
@@ -90,6 +89,7 @@ const Product = () => {
         toast.error('You Should be logged in to rate');
         console.log(rate, id);
     }
+
 
 
     return (
@@ -132,8 +132,8 @@ const Product = () => {
                                 ?
                                 <div className='flex items-center gap-2'>
                                     <MdAccountCircle className='text-[2rem]' />
-                                    <a href={`/users/${userId}`} className='h-[30px] bg-orange w-[30px] rounded-[50%] font-[500] grid place-content-center'>{userName?.slice(0, 1).toUpperCase()}</a>
-                                    <a href={`/users/${checkMatch(user?.email, postedBy?.email) ? 'me' : userId}`} className='cursor-pointer hover:underline'>
+                                    <a href={`/profiles/${userId}`} className='h-[30px] bg-orange w-[30px] rounded-[50%] font-[500] grid place-content-center'>{userName?.slice(0, 1).toUpperCase()}</a>
+                                    <a href={`/profiles/${checkMatch(user?.email, postedBy?.email) ? 'me' : userId}`} className='cursor-pointer hover:underline'>
                                         {
                                             checkMatch(user?.email, postedBy?.email) ?
                                                 'You': 

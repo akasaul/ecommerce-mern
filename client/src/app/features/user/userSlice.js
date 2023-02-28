@@ -47,7 +47,7 @@ export const getMe = createAsyncThunk(
     'user/getMe', 
     async (_, thunkAPI) => {
         try {
-            const token = thunkAPI.getState().user.user.token;
+            const token = thunkAPI.getState().user.user.token || thunkAPI.getState().user.user.user.token;
             return await userAPI.getMe(token);
         } catch(err) {
             console.log(err);
@@ -128,7 +128,6 @@ const userSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.user = action.payload;
-                localStorage.setItem('user', JSON.stringify(action.payload));
             })
             .addCase(getUser.rejected, (state, action) => {
                 state.user = {};

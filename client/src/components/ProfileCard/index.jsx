@@ -9,35 +9,15 @@ import { toast } from 'react-toastify'
 import { Rating } from 'react-simple-star-rating'
 
 const Card = ({id, name, price, desc, imageUrl, category, favs, rating}) => {
-  const [like, setLike] = useState(false);
-  
-  const isLoggedIn = useAuthStatus();
-
-  const dispatch = useDispatch();
-
-  const handleClick = (e) => {
-    e.stopPropagation();
-    if(isLoggedIn) {
-      setLike(like => !like) 
-      dispatch(toggleFav(id));
-    } else {
-      toast.error('Login to add to favorites')
-    }
-  }
-
-  const handleAddToCart = (e, id, name, qty, price, imageUrl, category, desc) => {
-    e.stopPropagation();
-    const item = {id, name, qty, price, imageUrl, category, desc};
-
-    dispatch(addToCart(item));
-    toast.success(name + ' Successfully added to cart');
-  }
-
 
   const navigate = useNavigate();
 
+  const onClick = () => {
+    navigate(`/products/${id}`)
+  }
+
   return (
-    <section className='shadow-md max-w-[400px] rounded-sm cursor-pointer hover:scale-105 duration-300 transition-transform relative'>
+    <section className='shadow-md max-w-[400px] rounded-sm cursor-pointer hover:scale-105 duration-300 transition-transform relative' onClick={onClick}>
         
         <img className='h-[200px] w-full object-cover rounded-t-sm' src={imageUrl} alt={desc} />
         

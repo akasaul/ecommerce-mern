@@ -5,16 +5,20 @@ import React from 'react'
 
 function useAuthStatus() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [checkingStatus, setCheckignStatus] = useState(true);
     const user = useSelector(state => state.user.user);
 
     useEffect(() => {
-        if(user) {
+        if(user) {  
             setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
         }
-    }, [])
 
+        setCheckignStatus(false);
+    }, [user])
 
-    return isLoggedIn;
+    return {isLoggedIn, checkingStatus};
 }
 
 export default useAuthStatus

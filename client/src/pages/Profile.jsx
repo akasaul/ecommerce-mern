@@ -8,6 +8,8 @@ import { useLocation } from 'react-router-dom';
 import {getUser} from '../app/features/user/userSlice';
 import Spinner from '../components/Spinner'
 import Card from '../components/Card';
+import { useNavigate } from 'react-router-dom';
+import useAuthStatus from '../hooks/useAuthStatus';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -22,8 +24,6 @@ const Profile = () => {
 
 
   const [showAll, setShowAll] = useState(products?.length < 3);
-
-  console.log(isLoading);
 
   if(isLoading) {
     return <Spinner />

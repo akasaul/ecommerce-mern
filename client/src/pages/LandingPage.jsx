@@ -6,13 +6,6 @@ import useAuthStatus from '../hooks/useAuthStatus'
 import { useNavigate } from 'react-router-dom'
 
 const LandingPage = () => {
-  const isLoggedIn = useAuthStatus();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    isLoggedIn &&
-      navigate('/shop');
-  }, [isLoggedIn]);
   
   return (
     <>

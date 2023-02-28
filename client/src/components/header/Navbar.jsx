@@ -11,6 +11,7 @@ const Navbar = () => {
     const [showCategoryDesktop, setShowCategoryDesktop] = useState(false);
     const [showCategoryMobile, setShowCategoryMobile] = useState(false);
     const [keyword, setKeyword] = useState('');
+    const {isLoggedIn} = useAuthStatus();
 
     const isAuth = useAuthStatus();
     const {cart} = useSelector(state => state.cart);
@@ -40,7 +41,7 @@ const Navbar = () => {
     return (
         
     <div className='max-w-[1200px] border-b border-secondary  mx-auto h-16 flex justify-between px-4 items-center'>
-        <a href='/' className='flex flex-[0.2] items-center gap-3 text-md text-primary'>
+        <a href={isLoggedIn ? '/shop' : '/'} className='flex flex-[0.2] items-center gap-3 text-md text-primary'>
             <MdShoppingBasket />
             Niko's
         </a>
@@ -92,7 +93,7 @@ const Navbar = () => {
             <ul className='flex items-center gap-4'>
 
                 <li>
-                    <a href={isAuth ? '/users/me' : '/signup'} className='flex items-center gap-2'>
+                    <a href='/profile/me' className='flex items-center gap-2'>
                         <MdAccountCircle className='text-md' /> Account
                     </a>
                 </li>
@@ -157,7 +158,7 @@ const Navbar = () => {
             </li>
 
             <li>
-                <a href={isAuth ? '/users/me' : '/signup'} className='flex items-center gap-1 py-2'>
+                <a href='/profile/me' className='flex items-center gap-1 py-2'>
                     <MdAccountCircle className='text-md' /> Account
                 </a>
             </li>
