@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL = 'auth'
+const API_URL = 'https://nikoshop-beta-api.onrender.com/auth'
 
 // Sign up req 
 const signup = async (userData) => {

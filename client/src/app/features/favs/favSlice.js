@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import favAPI from './favAPI'
 
-const API_URL = '/user/favs'
+const API_URL = 'https://nikoshop-beta-api.onrender.com/user/favs'
 
 const initialState = {
     favs: [],

@@ -18,6 +18,8 @@ import ProfileMe from './pages/ProfileMe';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
+
+  console.log(process.env.API_URL);
   return (
     <>
       <Routes>

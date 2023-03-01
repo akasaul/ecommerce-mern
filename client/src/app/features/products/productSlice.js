@@ -16,7 +16,7 @@ const initialState = {
     message: ''
 }
 
-const API_URL = '/product'
+const API_URL = 'https://nikoshop-beta-api.onrender.com/product'
 
 // Get Products 
 export const getProducts = createAsyncThunk(
