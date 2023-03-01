@@ -99,7 +99,7 @@ input[type="checkbox"] {
 
 
   input[type="file"] {
-    display: none;
+    display: non  e;
   }
   
   label[for="file"] {
@@ -113,9 +113,16 @@ input[type="checkbox"] {
     border-radius: 50%;
   }
 
-
   .profile-grid {
     grid-template-columns: 1fr;
+  }
+
+  .article-card:hover header svg {
+    background: white;
+  }
+
+  .article-card:hover header p {
+    color: white;
   }
 
 @media (min-width: 550px) {

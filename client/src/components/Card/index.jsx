@@ -7,6 +7,7 @@ import { addToCart } from '../../app/features/cart/cartSlice'
 import useAuthStatus from '../../hooks/useAuthStatus'
 import { toast } from 'react-toastify'
 import { Rating } from 'react-simple-star-rating'
+import getIcon from '../../utils/getIcon'
 
 const Card = ({id, name, price, desc, imageUrl, category, favs, rating}) => {
   const [like, setLike] = useState(false);
@@ -52,7 +53,7 @@ const Card = ({id, name, price, desc, imageUrl, category, favs, rating}) => {
             <a href={`/products/${id}`} className='text-xs underline capitalize text-primary'>{name?.length < 15 ? name : name?.slice(0, 15) + '...'}</a>
             <p className='text-xs md:hidden font-[300]'>description: {desc?.length < 25 ? desc : desc?.slice(0, 25) + '...'}</p>   
             <p className='text-xs hidden md:block font-[300]'>description: {desc?.length < 12 ? desc : desc?.slice(0, 12) + '...'}</p>   
-            <p className="text-xs font-[300] flex items-center gap-2">Category: <MdCollections /> {category } </p>
+            <p className="text-xs font-[300] flex items-center gap-2 capitalize">Category: {getIcon(category)} {category } </p>
         </div>
 
         <div className='flex items-center gap-2'>

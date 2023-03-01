@@ -14,6 +14,7 @@ import ProductNotFound from './ProductNotFound'
 import { rateProduct } from '../app/features/products/productSlice'
 import useAuthStatus from '../hooks/useAuthStatus'
 import Modal from '../components/Modal';
+import getIcon from '../utils/getIcon'
 
 const checkMatch = (email, email2) => {
     return email === email2;
@@ -112,7 +113,7 @@ const Product = () => {
                     {description}
                 </p>
 
-                <p className='flex items-center gap-2'>Category <MdImage /> {category?.slice(0, 1)?.toUpperCase() + category?.slice(1)} </p>
+                <p className='flex items-center gap-2'>Category {getIcon(category)} {category?.slice(0, 1)?.toUpperCase() + category?.slice(1)} </p>
 
                  {
                     isSuccess &&

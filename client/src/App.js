@@ -16,6 +16,7 @@ import LandingPage from './pages/LandingPage';
 import Profile from './pages/Profile';
 import ProfileMe from './pages/ProfileMe';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import NotFound from './pages/NotFound';
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
         <Route path='/profiles/:userId' element={<PrivateRoute />}> 
           <Route path='/profiles/:userId' element={<Profile />} />
         </Route> 
+        <Route path='/*' element={<NotFound />} />
       </Routes>
       <ToastContainer />
     </>

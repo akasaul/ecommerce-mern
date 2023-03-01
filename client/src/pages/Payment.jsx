@@ -14,9 +14,6 @@ const Payment = () => {
     const total = cart.reduce((total, cur) => total + (cur.qty *  cur.price), 0);
     const totalWithTax = total + total * 0.15;
 
-
-    console.log(cart);
-
     return (
         <>
             <Appbar />
