@@ -57,7 +57,7 @@ const ProfileMe = () => {
 
             {
               products?.length > 0 ? 
-                <p>Your Products</p> : 
+                <p>Your Products ({products?.length})</p> : 
                 <p>You Haven't Posted Any Products</p>
             }
 

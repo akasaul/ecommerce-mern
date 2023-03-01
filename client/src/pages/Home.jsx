@@ -8,6 +8,7 @@ import Spinner from '../components/Spinner';
 import { favSelector, getFavs } from '../app/features/favs/favSlice';
 import { MdOutlineFavoriteBorder, MdOutlineFormatListNumberedRtl, MdOutlineShoppingCart, MdShoppingCart, MdSkipNext, MdSkipPrevious } from 'react-icons/md';
 import Footer from '../components/Footer/Footer';
+import useAuthStatus from '../hooks/useAuthStatus';
 
 const Home = () => {
 
@@ -15,6 +16,7 @@ const Home = () => {
 
   const {products, isError, isSuccess, isLoading, message} = useSelector(state => state.product);
   const {cart} = useSelector(state => state.cart)
+  const {isLoggedIn} = useAuthStatus();
 
   const [priceRange, setPriceRange] = useState(0);
   const [inCart, setInCart] = useState(false);
@@ -24,14 +26,16 @@ const Home = () => {
   useEffect(() => {
     dispatch(reset());
   }, [])
+
   
   useEffect(() => {
     dispatch(getProducts(page));
-    dispatch(getFavs());
-  }, [page]);
+    if(isLoggedIn) {
+      dispatch(getFavs());
+    }
+  }, [page, isLoggedIn]);
 
   const favs = useSelector(favSelector);
-
 
   const paginateForward = () => {
     setPage(prev => prev + 1)
@@ -99,7 +103,6 @@ const Home = () => {
         </Layout>
 
        }
-
 
         <div className='max-w-[300px] mt-9 items-center justify-around mx-auto flex '>
           <button onClick={paginateBackward} disabled={page < 2} className='flex items-center gap-2 border border-primary p-2 px-4 hover:bg-primary hover:text-white'><MdSkipPrevious /> Prev </button>

@@ -11,7 +11,7 @@ import { Rating } from 'react-simple-star-rating'
 const Card = ({id, name, price, desc, imageUrl, category, favs, rating}) => {
   const [like, setLike] = useState(false);
   
-  const isLoggedIn = useAuthStatus();
+  const {isLoggedIn, checkingStatus} = useAuthStatus();
 
   const dispatch = useDispatch();
 
@@ -32,7 +32,6 @@ const Card = ({id, name, price, desc, imageUrl, category, favs, rating}) => {
     dispatch(addToCart(item));
     toast.success(name + ' Successfully added to cart');
   }
-
 
   const navigate = useNavigate();
 

@@ -38,7 +38,7 @@ const Footer = () => {
                     <div>
                         <p>Site Map</p>
                         <div className='font-thin text-[12px]'>
-                            <a href="/" className='flex items-center gap-2'><MdHome /> Home</a>
+                            <a href="/shop" className='flex items-center gap-2'><MdHome /> Shop</a>
                             <a href="/cart" className='flex items-center gap-2'><MdOutlineShoppingCart /> Cart</a>
                             <a href="/login" className='flex items-center gap-2'><MdAccountBox /> Login</a>
                             <a href="/signup" className='flex items-center gap-2'><MdAccountCircle /> Signup</a>

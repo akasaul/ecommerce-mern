@@ -56,7 +56,6 @@ const rateProduct = async(value, token, url) => {
             Authorization: 'Bearer ' + token
         }
     }
-    console.log({value});
     const { data } = await axios.post(url, {value}, config);
     return data;
 }

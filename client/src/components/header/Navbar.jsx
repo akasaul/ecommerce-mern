@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {MdShoppingBasket, MdExpandMore, MdSearch, MdAccountCircle, MdOutlineShoppingCart, MdMenu, MdQuestionAnswer, MdShop, MdFoodBank, MdPhoneAndroid, MdKitchen, MdChair, MdPages, MdList, MdExpandLess, MdArrowBack} from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategory, getProducts } from '../../app/features/products/productSlice';
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import useAuthStatus from '../../hooks/useAuthStatus';
 
 const Navbar = () => {
@@ -17,6 +17,7 @@ const Navbar = () => {
     const {cart} = useSelector(state => state.cart);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {pathname} = useLocation();
 
     const onClickDesktop = async (e) => {
         const category = e.target.textContent.toLowerCase().trim();
@@ -36,6 +37,10 @@ const Navbar = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         navigate(`/search?keyword=${keyword}`);
+    }
+
+    const handleChange = (e) => {
+        setKeyword(e.target.value);
     }
 
     return (
@@ -86,7 +91,7 @@ const Navbar = () => {
         <div className="right flex-[0.5] hidden md:flex items-center gap-4">
 
             <form onSubmit={onSubmit} className='bg-accent flex items-center px-2 rounded-[2rem]'>
-                <input placeholder='Search Product' className='outline-none p-2 bg-accent max-w-[110px]' value={keyword} onChange={e => setKeyword(e.target.value)} />
+                <input placeholder='Search Product' className='outline-none p-2 bg-accent max-w-[110px]' value={keyword} onChange={handleChange} />
                 <MdSearch className='text-md mr-2' />
             </form>
 
@@ -165,7 +170,7 @@ const Navbar = () => {
 
             <li>
                 <form onSubmit={onSubmit} className='bg-accent flex items-center px-2 rounded-[2rem]'>
-                    <input placeholder='Search Product' className='outline-none p-2 text-[12px] bg-accent max-w-[100px]' value={keyword} onChange={e => setKeyword(e.target.value)} />
+                    <input placeholder='Search Product' className='outline-none p-2 text-[12px] bg-accent max-w-[100px]' value={keyword} onChange={handleChange} />
                     <MdSearch className='text-md mr-2' />
                 </form>
             </li>

@@ -44,7 +44,7 @@ const Profile = () => {
               <a href={`mailto:${user?.email}`} className='font-thin flex items-center gap-3'><MdEmail className='text-md' /> {user?.email} </a>
             </div>
 
-            <p>Posted Products</p>
+            <p>Posted Products ({products?.length})</p>
 
             <div className='w-full profile-grid grid gap-5' style={{
             }}>

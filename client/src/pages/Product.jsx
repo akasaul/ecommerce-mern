@@ -3,7 +3,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { Appbar, Navbar } from '../components/header'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProduct, reset, productSelector, deleteProduct } from '../app/features/products/productSlice'
-import { MdAccountCircle, MdAdd, MdArrowBack, MdClose, MdDelete, MdEdit, MdImage, MdOutlineAddShoppingCart, MdOutlineVerifiedUser, MdRemove, MdRemoveCircle, MdUpdate } from 'react-icons/md'
+import { MdAccountCircle, MdAdd, MdArrowBack, MdClose, MdDelete, MdEdit, MdImage, MdOutlineAddShoppingCart, MdOutlineVerifiedUser, MdRemove, MdRemoveCircle, MdStarOutline, MdStarRate, MdUpdate } from 'react-icons/md'
 import Spinner from '../components/Spinner'
 import {Rating} from 'react-simple-star-rating' 
 import Breadcrumb from '../components/Breadcrumb'
@@ -33,14 +33,12 @@ const Product = () => {
     }, [])
 
     const [count, setCount] = useState(1);
-
     
     const {_id, name, description, price, imageUrl, category, postedBy, rating} = useSelector(productSelector);
-
    
     const {isLoading, isError, isSuccess, message} = useSelector(state => state.product.product);
-    const {user} = useSelector(state => state.user);    
-
+    const {user} = useSelector(state => state.user); 
+    
 
     const path = pathname.split('/');
     path[2] = name;
@@ -48,7 +46,7 @@ const Product = () => {
     const userName = postedBy?.name;
     const email = postedBy?.email;
     const [modalOpen, setModalOpen] = useState(false);
-    const isLoggedIn = useAuthStatus();
+    const {isLoggedIn} = useAuthStatus();
 
 
     useEffect(() => {
@@ -74,7 +72,6 @@ const Product = () => {
         navigate('/shop');
     }
 
-
     const handleclick = ({id, name, count, price, imageUrl, category, description}) => {
         const item = {id, name, price, imageUrl, category, desc: description, qty: count};
         dispatch(addToCart(item));
@@ -82,14 +79,11 @@ const Product = () => {
         navigate('/cart');
     }
 
-
     const handleRating = (rate) => {
         isLoggedIn ?
             dispatch(rateProduct({id, value: rate})) : 
         toast.error('You Should be logged in to rate');
-        console.log(rate, id);
     }
-
 
 
     return (
@@ -99,6 +93,7 @@ const Product = () => {
         <Breadcrumb path={path} />
 
         <section className='flex flex-col gap-6 md:gap-8 mt-5 items-start sm:flex-row max-w-[1000px] mx-auto px-5 '>
+
             <div style={{
                 flex: 0.5
             }}>
@@ -110,7 +105,9 @@ const Product = () => {
                  style={{
                     flex: 0.5
                  }}>
+               
                 <h2>{ name }</h2>
+               
                 <p className='text-sm font-[300] '>
                     {description}
                 </p>
@@ -121,7 +118,8 @@ const Product = () => {
                     isSuccess &&
                         <>
                             <Rating emptyStyle={{ display: "flex" }} initialValue={rating.length !== 0 ? rating.map(rate => rate.value).reduce((total, cur) => total + cur, 0) / rating.length : 0} size={24} fillStyle={{ display: "-webkit-inline-box" }} onClick={handleRating} />
-                            <p className='flex items-center gap-2 font-thin'><MdAccountCircle /> ({rating.length}) Reviews</p>
+                            {/* <Rating emptyStyle={{ display: "flex" }} initialValue={rating.length > 0 ? console.log(rating.find(rate => rate.userId === user.id)?.value) : 0} size={24} fillStyle={{ display: "-webkit-inline-box" }} onClick={handleRating} /> */}
+                            <p className='flex items-center gap-2 font-thin'>{rating?.length > 0 ? <MdStarRate className='text-orange text-md ml-2' /> : <MdStarOutline className='text-md' />  }{rating.length !== 0 ? (rating.map(rate => rate.value).reduce((total, cur) => total + cur, 0) / rating.length).toFixed(1) : 0} ({rating.length}) Reviews</p>
                         </>
                  }
 
@@ -132,8 +130,8 @@ const Product = () => {
                                 ?
                                 <div className='flex items-center gap-2'>
                                     <MdAccountCircle className='text-[2rem]' />
-                                    <a href={`/profiles/${userId}`} className='h-[30px] bg-orange w-[30px] rounded-[50%] font-[500] grid place-content-center'>{userName?.slice(0, 1).toUpperCase()}</a>
-                                    <a href={`/profiles/${checkMatch(user?.email, postedBy?.email) ? 'me' : userId}`} className='cursor-pointer hover:underline'>
+                                    <a href={checkMatch(user?.email, postedBy?.email) ? '/profile/me' : '/profiles/' + userId} className='h-[30px] bg-orange w-[30px] rounded-[50%] font-[500] grid place-content-center'>{userName?.slice(0, 1).toUpperCase()}</a>
+                                    <a href={checkMatch(user?.email, postedBy?.email) ? '/profile/me' : '/profiles/' + userId} className='cursor-pointer hover:underline'>
                                         {
                                             checkMatch(user?.email, postedBy?.email) ?
                                                 'You': 
@@ -195,7 +193,7 @@ const Product = () => {
                         <button className='bg-orange p-2 rounded-sm  hover:scale-110' onClick={() => handleclick({id, name, count, price, imageUrl, category, description})}>
                             <MdOutlineAddShoppingCart className='text-md' />
                         </button>
-                        <p>$ {count * price}</p>
+                        <p>$ {(count * price).toFixed(2)}</p>
                     </div>
 
                 </div>
