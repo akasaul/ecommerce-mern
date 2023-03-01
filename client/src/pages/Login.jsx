@@ -7,6 +7,9 @@ import { login } from '../app/features/user/userSlice';
 import { toast } from 'react-toastify'
 import Breadcrumb from '../components/Breadcrumb';
 import Footer from '../components/Footer/Footer';
+import useAuthStatus from '../hooks/useAuthStatus';
+import Spinner from '../components/Spinner';
+import Home from '../pages/Home'
 
 const Login = () => {
 
@@ -14,6 +17,7 @@ const Login = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const location = useLocation();
     const path = location.pathname.split('/');
+    const {isLoggedIn, checkingStatus} = useAuthStatus();;
 
     const [formData, setFormData] = useState({
         email: '', 
@@ -56,6 +60,14 @@ const Login = () => {
     const handleClick = (e) => {
         e.preventDefault();
         navigate('/signup')
+    }
+
+    if(checkingStatus) {
+        return <Spinner />
+    }
+
+    if(isLoggedIn) {
+        return <Home />
     }
 
   return (

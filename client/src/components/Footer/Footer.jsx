@@ -42,7 +42,7 @@ const Footer = () => {
                             <a href="/cart" className='flex items-center gap-2'><MdOutlineShoppingCart /> Cart</a>
                             <a href="/login" className='flex items-center gap-2'><MdAccountBox /> Login</a>
                             <a href="/signup" className='flex items-center gap-2'><MdAccountCircle /> Signup</a>
-                            <a href="/profile" className='flex items-center gap-2'><MdSupervisorAccount /> Account</a>
+                            <a href="/profile/me" className='flex items-center gap-2'><MdSupervisorAccount /> Account</a>
                         </div>
                     </div>
 

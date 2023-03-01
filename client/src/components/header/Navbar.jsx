@@ -45,7 +45,7 @@ const Navbar = () => {
 
     return (
         
-    <div className='max-w-[1200px] border-b border-secondary  mx-auto h-16 flex justify-between px-4 items-center'>
+    <nav className='max-w-[1200px] border-b border-secondary overflow-hidden mx-auto h-16 flex justify-between px-4 items-center'>
         <a href={isLoggedIn ? '/shop' : '/'} className='flex flex-[0.2] items-center gap-3 text-md text-primary'>
             <MdShoppingBasket />
             Niko's
@@ -122,7 +122,6 @@ const Navbar = () => {
         {/* Mobile Menu  */}
 
         <ul className={`absolute bg-white flex flex-col gap-2 px-3 w-[250px] md:hidden top-0 bottom-0 py-5 z-10 right-0 translate-x-[500px] transition-transform duration-[0.5s] ${show && 'translate-x-[50px]'}`}>
-            
             <button className='self-start' onClick={() => setShow(false)}>
                 <MdArrowBack /> 
             </button>
@@ -183,7 +182,7 @@ const Navbar = () => {
             </li>
 
         </ul>
-    </div>
+    </nav>
   )
 }
 

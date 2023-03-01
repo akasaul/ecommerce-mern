@@ -49,7 +49,7 @@ const ProfileMe = () => {
        
           <h1 className='mt-5 text-md text-secondary'>Me</h1>
        
-          <div className='h-[50px] w-[50px] grid rounded-[50%] place-content-center bg-orange'>{user?.name?.slice(0, 1)}</div>
+          <div className='h-[50px] w-[50px] grid rounded-[50%] place-content-center border-2 border-primary bg-orange'>{user?.name?.slice(0, 1)}</div>
              <div className='mt-5'>
               <p className='font-thin flex items-center gap-3'><MdAccountCircle className='text-md' />{user?.name}</p>
               <a href={`mailto:${user?.email}`} className='font-thin flex items-center gap-3'><MdEmail className='text-md' /> {user?.email} </a>

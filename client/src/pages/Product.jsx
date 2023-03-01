@@ -7,13 +7,13 @@ import { MdAccountCircle, MdAdd, MdArrowBack, MdClose, MdDelete, MdEdit, MdImage
 import Spinner from '../components/Spinner'
 import {Rating} from 'react-simple-star-rating' 
 import Breadcrumb from '../components/Breadcrumb'
-import Modal from 'react-modal';
 import { addToCart } from '../app/features/cart/cartSlice'
 import Footer from '../components/Footer/Footer'
 import {toast} from 'react-toastify'
 import ProductNotFound from './ProductNotFound'
 import { rateProduct } from '../app/features/products/productSlice'
 import useAuthStatus from '../hooks/useAuthStatus'
+import Modal from '../components/Modal';
 
 const checkMatch = (email, email2) => {
     return email === email2;
@@ -130,10 +130,10 @@ const Product = () => {
                                 ?
                                 <div className='flex items-center gap-2'>
                                     <MdAccountCircle className='text-[2rem]' />
-                                    <a href={checkMatch(user?.email, postedBy?.email) ? '/profile/me' : '/profiles/' + userId} className='h-[30px] bg-orange w-[30px] rounded-[50%] font-[500] grid place-content-center'>{userName?.slice(0, 1).toUpperCase()}</a>
-                                    <a href={checkMatch(user?.email, postedBy?.email) ? '/profile/me' : '/profiles/' + userId} className='cursor-pointer hover:underline'>
+                                    <a href={checkMatch(user?.email || user?.user?.email, postedBy?.email) ? '/profile/me' : '/profiles/' + userId} className='h-[30px] bg-orange w-[30px] rounded-[50%] font-[500] grid place-content-center'>{userName?.slice(0, 1).toUpperCase()}</a>
+                                    <a href={checkMatch(user?.email || user?.user?.email, postedBy?.email) ? '/profile/me' : '/profiles/' + userId} className='cursor-pointer hover:underline'>
                                         {
-                                            checkMatch(user?.email, postedBy?.email) ?
+                                            checkMatch(user?.email || user?.user?.email, postedBy?.email) ?
                                                 'You': 
                                                 '@' +  userName 
                                         } 
@@ -148,7 +148,7 @@ const Product = () => {
                     </article>
                 </div>
                 {
-                    checkMatch(user?.email, postedBy?.email) && 
+                    checkMatch(user?.email || user?.user?.email, postedBy?.email) && 
                     <div className='flex items-around gap-3 my-2'>
                         <a href={`/product/update/${_id}?name=${name}&desc=${description}&price=${price}&imgUrl=${imageUrl}&qty=${count}&category=${category}`} className='flex items-center gap-2'>Edit<MdEdit /></a>
                         <button  className='flex items-center gap-2' onClick={() => setModalOpen(true)}>Delete<MdDelete/></button>
@@ -156,28 +156,11 @@ const Product = () => {
                 }
                 <div>
 
-                    <Modal
-                        isOpen={modalOpen}
-                        contentLabel='Delete Product'
-                        >
-                            <section className='py-2 border-b mb-5 flex justify-end'>
-                                <button className='hover:bg-secondary h-[30px] rounded-[50%] w-[30px] place-content-center grid hover:text-white' 
-                                onClick={() => setModalOpen(false)}>
-                                    <MdClose />
-                                </button>
-                            </section>
-                        
-                        <div className='grid place-content-center min-h-[50vh]'>
-                            <img src="/vecteezy_delete-icon-no-sign-cancel-wrong-and-reject_.jpg" className='h-[200px]' alt="" />
-                            <h1>Are you sure to delete {name}</h1>
-                            <div className='flex justify-around'>
-                                <button className='flex items-center gap-2 hover:bg-orange p-1' onClick={() => removeProduct(_id)}><MdDelete /> Yes</button>
-                                <button className='flex items-center gap-2 hover:bg-orange p-1' onClick={() => setModalOpen(false)}><MdArrowBack /> No</button>
-                            </div>
-                        </div>
-                    
-                    </Modal>
-                    
+                    {
+                        modalOpen &&
+                        <Modal name={name} id={_id} modalOpen={modalOpen} setModalOpen={setModalOpen} removeProduct={removeProduct} />
+
+                    }
 
                     <div className='flex items-center justify-between max-w-[300px] bg-orange p-2 rounded-sm'>
                         <button className='hover:scale-110 rounded-[50%]' onClick={() => {count > 1 && setCount(prev => prev - 1)}}>

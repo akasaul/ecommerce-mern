@@ -2,6 +2,8 @@ import axios from "axios"
 
 const API_URL = 'https://nikoshop-beta-api.onrender.com/auth'
 
+const API_ENTRY = 'https://nikoshop-beta-api.onrender.com';
+
 // Sign up req 
 const signup = async (userData) => {
     const res = await axios.post(API_URL + '/signup', userData);
@@ -28,7 +30,7 @@ const getMe = async (token) => {
     }
 }
 
-    const { data } = await axios.get('/user/profile/me', config);
+    const { data } = await axios.get(API_ENTRY + '/user/profile/me', config);
     return data;
 }
 

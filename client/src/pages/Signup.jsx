@@ -7,6 +7,10 @@ import { signup } from '../app/features/user/userSlice';
 import { toast } from 'react-toastify'
 import Breadcrumb from '../components/Breadcrumb';
 import Footer from '../components/Footer/Footer';
+import useAuthStatus from '../hooks/useAuthStatus';
+import Spinner from '../components/Spinner';
+import Home from '../pages/Home'
+
 
 const Signup = () => {
 
@@ -31,6 +35,10 @@ const Signup = () => {
         })
     }
 
+    const {isLoggedIn, checkingStatus} = useAuthStatus();
+    const navigate = useNavigate();
+    
+
     const dispatch = useDispatch();
 
     const { isLoading, isError, message, isSuccess }  = useSelector(state => state.user)
@@ -53,7 +61,6 @@ const Signup = () => {
 
     }, [isError, isSuccess]);
 
-    const navigate = useNavigate();
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -63,6 +70,15 @@ const Signup = () => {
     // prevent default 
     const onClick = (e) => {
         e.preventDefault();
+    }
+
+
+    if(isLoggedIn) {
+        return <Home />
+    }
+
+    if(checkingStatus) {
+        return <Spinner />
     }
 
     

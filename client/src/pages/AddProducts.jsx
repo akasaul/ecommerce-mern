@@ -75,7 +75,7 @@ const AddProduct = () => {
             <div className='grid sm:grid-cols-2 px-4 gap-5 max-w-[800px] mx-auto'>
                 <div className='flex flex-col gap-2'>
                     <label className='text-xs gap-2 text-secondary cursor-pointer hover:text-[#000] items-center flex'>Title <MdTextFormat /></label>
-                    <input value={name} className='input rounded-sm' onChange={onChange} name='name' type='text' />
+                    <input value={name} className='input focus:border focus:border-primary rounded-sm' onChange={onChange} name='name' type='text' />
                 </div>
 
                 <div className='flex flex-col gap-2'>
@@ -85,24 +85,24 @@ const AddProduct = () => {
 
                 <div className='flex flex-col gap-2'>
                     <label className='text-xs gap-2 text-secondary cursor-pointer hover:text-[#000] items-center flex'>Price <MdAttachMoney /></label>
-                    <input className='input rounded-sm' value={price} onChange={onChange} name='price' type='number' min={0} />
+                    <input className='input focus:border focus:border-primary rounded-sm' value={price} onChange={onChange} name='price' type='number' min={0} />
                 </div>
 
                 <div className='flex flex-col gap-2'>
                     <label className='text-xs gap-2 text-secondary cursor-pointer hover:text-[#000] items-center flex'>ImageUrl <MdLink /></label>
-                    <input className='input rounded-sm' value={imageUrl} onChange={onChange} name='imageUrl' type='url' />
+                    <input className='input focus:border focus:border-primary rounded-sm' value={imageUrl} onChange={onChange} name='imageUrl' type='url' />
                 </div>
 
                 <div className='flex flex-col gap-2'>
                     <label className='text-xs gap-2 text-secondary cursor-pointer hover:text-[#000] items-center flex'>Quantity <MdProductionQuantityLimits /></label>
-                    <input className='input rounded-sm' value={qty} onChange={onChange} name='qty' type='number' min={0} />
+                    <input className='input focus:border focus:border-primary rounded-sm' value={qty} onChange={onChange} name='qty' type='number' min={0} />
                 </div>
 
                 <div className='flex flex-col gap-2'>
                     <label className='text-xs gap-2 text-secondary cursor-pointer hover:text-[#000] items-center flex'>Category <MdCategory /></label>
                     <select
                         name='category'
-                        className='input'
+                        className='input focus:border focus:border-primary'
                         onChange={onChange}
                         value={category}
                     >
