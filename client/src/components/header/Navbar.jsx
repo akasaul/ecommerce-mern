@@ -47,7 +47,7 @@ const Navbar = () => {
 
     return (
         
-    <nav className='max-w-[1200px] border-b border-accent overflow-hidden mx-auto h-16 flex justify-between px-4 items-center shadow-md'>
+    <nav className='max-w-[1200px] border-b border-accent overflow-hidden mx-auto h-16 flex nav-shadow justify-between px-4 items-center'>
         <a href={isLoggedIn ? '/shop' : '/'} className='flex flex-[0.2] items-center gap-3 text-md text-primary'>
             <MdShoppingBasket />
             Niko's

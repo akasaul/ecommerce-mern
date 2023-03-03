@@ -1,6 +1,7 @@
 import {  MdDelete } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { deleteItem } from '../../app/features/cart/cartSlice';
+import getIcon from '../../utils/getIcon';
 
 const CartItem = ({item}) => {
   const {id, name, qty, price, imageUrl, category, desc} = item;
@@ -24,7 +25,7 @@ const CartItem = ({item}) => {
       <div className='flex-[0.4]'>
         <a className='hover:border-b' href={`/products/${id}`}>{name.length > 15 ? name.slice(0, 12) + '...' : name}</a>
         <p className='font-[300]'>{desc.length > 15 ? desc.slice(0, 12) + '...' : desc}</p>
-        <p className='font-[300]'>{category}</p>
+        <p className='font-[300] capitalize flex items-center gap-1'>{category} {getIcon(category)}</p>
       </div>
       
       <div className='flex-[0.4] sm:ml-auto justify-around flex gap-3'>

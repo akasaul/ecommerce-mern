@@ -124,6 +124,10 @@ input[type="checkbox"] {
   .article-card:hover header p {
     color: white;
   }
+  
+  .nav-shadow {
+    box-shadow: 0 4px 2px -4px rgb(194, 194, 194);
+  }
 
 @media (min-width: 550px) {
     .grid-layout { 

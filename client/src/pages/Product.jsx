@@ -133,7 +133,7 @@ const Product = () => {
                                     ?
                                     <div className='flex items-center gap-2'>
                                         <MdAccountCircle className='text-[2rem]' />
-                                        <a href={checkMatch(user?.email || user?.user?.email, postedBy?.email) ? '/profile/me' : '/profiles/' + userId} className='h-[30px] bg-orange w-[30px] rounded-[50%] font-[500] grid place-content-center'>{userName?.slice(0, 1).toUpperCase()}</a>
+                                        <a href={checkMatch(user?.email || user?.user?.email, postedBy?.email) ? '/profile/me' : '/profiles/' + userId} className='h-[30px] bg-gradient-to-r from-[#f12711] to-[#f5af19] w-[30px] rounded-[50%] font-[500] grid place-content-center'>{userName?.slice(0, 1).toUpperCase()}</a>
                                         <a href={checkMatch(user?.email || user?.user?.email, postedBy?.email) ? '/profile/me' : '/profiles/' + userId} className='cursor-pointer hover:underline'>
                                             {
                                                 checkMatch(user?.email || user?.user?.email, postedBy?.email) ?
@@ -144,7 +144,7 @@ const Product = () => {
                                     </div>
                                     :
                                     <div className='flex items-center gap-2'>
-                                        <a href='#' className='h-[30px] bg-orange w-[30px] rounded-[50%] grid place-content-center'>u</a>
+                                        <a href='#' className='h-[30px] bg-gradient-to-r from-[#f12711] to-[#f5af19] w-[30px] rounded-[50%] grid place-content-center'>u</a>
                                         <a href='#' className='cursor-pointer hover:underline'>UnknownUser</a>
                                     </div>    
                             }

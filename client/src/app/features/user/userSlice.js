@@ -90,7 +90,6 @@ const userSlice = createSlice({
                 localStorage.setItem('user', JSON.stringify(action.payload));
             })
             .addCase(signup.rejected, (state, action) => {
-                state.user = {};
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
@@ -110,7 +109,6 @@ const userSlice = createSlice({
                 localStorage.setItem('user', JSON.stringify(action.payload));
             })
             .addCase(login.rejected, (state, action) => {
-                state.user = {};
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;

@@ -10,6 +10,7 @@ import Footer from '../components/Footer/Footer';
 import useAuthStatus from '../hooks/useAuthStatus';
 import Spinner from '../components/Spinner';
 import Home from '../pages/Home'
+import { MdAccountCircle, MdLogin, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 
 const Login = () => {
 
@@ -45,7 +46,7 @@ const Login = () => {
     // Toast and Spinner
     useEffect(() => {
         if(isError) {
-            toast.error(message);
+            toast.error(message.toUpperCase());
         }
 
         if(isSuccess) {
@@ -89,17 +90,21 @@ const Login = () => {
             <div className='flex flex-col gap-2 relative'>
                 <label className='text-xs '>Password</label>
                 <input className='input rounded-sm' type={!showPassword ? 'password' : 'text'} name='password' value={password} onChange={onChange} />
-                <span className='absolute bottom-0 right-[10px] cursor-pointer text-fill hover:text-[#000]' onMouseDown={() => setShowPassword(true)} onMouseUp={() => setShowPassword(false)}>SEE</span>
+                <span className='absolute bottom-0 right-[10px] cursor-pointer text-fill hover:text-[#000]' onClick={e => {setShowPassword(prev => !prev); e.preventDefault()}}>{
+                    showPassword ? <MdVisibility className='text-md' /> :
+                    <MdVisibilityOff className='text-md' />
+                }</span>
             </div>
 
-            <button className='bg-orange py-3 mt-3 relative' type='submit'>
+            <button className='bg-orange py-3 mt-3 relative flex items-center gap-2 justify-center' type='submit'>
+                <MdLogin />
                 Log in {isLoading && '...'}
             </button>
 
             <h2 className='mb-3'>New Here? </h2>
 
-            <button onClick={handleClick} className='bg-white border-primary border mb-5 py-3 text-primary mt-3'>
-                Sign up
+            <button onClick={handleClick} className='bg-white border-primary flex items-center gap-2 justify-center border mb-5 py-3 text-primary mt-3'>
+                <MdAccountCircle /> Sign up
             </button>            
 
         </form>

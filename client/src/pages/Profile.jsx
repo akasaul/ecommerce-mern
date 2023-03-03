@@ -37,7 +37,7 @@ const Profile = () => {
       <section className='min-h-[50vh] max-w-[500px] mx-auto'>
         <div className='bg-accent gap-5 shadow-lg pt-5 rounded-[10px] flex mt-9 p-5 flex-col items-center'>
           <h1 className='mt-5 text-md text-secondary'>Profile</h1>
-          <div className='h-[50px] w-[50px] grid rounded-[50%] place-content-center border-2 border-primary bg-orange'>{user?.name?.slice(0, 1)}</div>
+          <div className='h-[50px] w-[50px] grid rounded-[50%] place-content-center border bg-gradient-to-r from-[#f12711] to-[#f5af19]'>{user?.name?.slice(0, 1)}</div>
           
             <div className='mt-5'>
               <p className='font-thin flex items-center gap-3'><MdAccountCircle className='text-md' />{user?.name}</p>
