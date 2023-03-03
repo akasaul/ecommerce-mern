@@ -128,7 +128,7 @@ const Navbar = () => {
 
         {/* Mobile Menu  */}
 
-        <ul className={`absolute bg-white flex flex-col gap-2 px-3 w-[250px] md:hidden top-0 bottom-0 py-5 z-10 right-0 translate-x-[500px] transition-transform duration-[0.5s] ${show && 'translate-x-[50px]'}`}>
+        <ul className={`fixed bg-white flex flex-col gap-2 px-3 w-[250px] md:hidden top-0 bottom-0 py-5 z-10 right-0 translate-x-[500px] transition-transform duration-[0.5s] ${show && 'translate-x-[50px]'}`}>
             <button className='self-start' onClick={() => setShow(false)}>
                 <MdArrowBack /> 
             </button>
