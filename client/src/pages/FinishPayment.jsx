@@ -26,7 +26,7 @@ const FinishPayment = () => {
             <div className='h-[100px] w-[100px] border grid place-content-center rounded-[50%] text-orange'>
                 <MdCheck className='text-xl text-[#72D0A1]' />
             </div>
-            <h1 className='text-lg'>Confirmed Purchase</h1>
+            <h1 className='sm:text-lg text-md text-center'>Confirmed Purchase</h1>
             <a href='/' className='bg-orange p-2 px-4 flex items-center gap-2'>Go to homepage <MdHome /></a>
             <p>or</p>
             <a href='https://github.com/akasaul' className='border p-2 px-4 flex hover:bg-fill hover:text-white items-center gap-2'>Visit Code in Github<AiFillGithub /> </a>

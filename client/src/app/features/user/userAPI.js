@@ -18,7 +18,7 @@ const login = async (userData) => {
 
 // Get User 
 const getUser = async (id) => {
-    const res = await axios.get('/user/profiles/' + id);
+    const res = await axios.get(API_ENTRY + '/user/profiles/' + id);
     return res.data;
 }
 

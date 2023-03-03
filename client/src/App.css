@@ -141,6 +141,6 @@ input[type="checkbox"] {
 body {
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden !important;
-    height: 100%;
+    width: 100% !important;
   }
   

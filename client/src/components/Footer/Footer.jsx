@@ -2,6 +2,7 @@ import React from 'react'
 import { MdAccountBox, MdAccountCircle, MdComputer, MdEmail, MdHome, MdOutlineShoppingCart, MdPhone, MdSend, MdShoppingBasket, MdSupervisorAccount } from 'react-icons/md'
 import { FaGithub } from 'react-icons/fa'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
     const [message, setMessage] = useState('');
@@ -17,11 +18,11 @@ const Footer = () => {
                     Niko's
                 </a>
                 <p>Contact Me</p>
-                <a href="#" className='flex items-center font-[300] gap-3 text-[12px]'> <MdComputer /> Nikodimos Jemaneh</a>
-                <a href="mailto: nikodimosjemaneh40@gmail.com"  className='flex items-center font-[300] gap-3 text-[12px]'> <MdEmail /> nikodimosjemaneh40@gmail.com </a>
-                <a href="mailto: nikodimosjemaneh40@gmail.com"  className='flex items-center font-[300] gap-3 text-[12px]'> <MdSend /> Telegram </a>
-                <a href="tel: 0968600496"  className='flex items-center font-[300] gap-3 text-[12px]'> <MdPhone /> +251968600496 </a>
-                <a href="https://github.com/akasaul"  className='flex items-center font-[300] gap-3 text-[12px]'> <FaGithub /> Github </a>
+                <Link to="#" className='flex items-center font-[300] gap-3 text-[12px]'> <MdComputer /> Nikodimos Jemaneh</Link>
+                <Link to="mailto: nikodimosjemaneh40@gmail.com"  className='flex items-center font-[300] gap-3 text-[12px]'> <MdEmail /> nikodimosjemaneh40@gmail.com </Link>
+                <Link to="mailto: nikodimosjemaneh40@gmail.com"  className='flex items-center font-[300] gap-3 text-[12px]'> <MdSend /> Telegram </Link>
+                <Link to="tel: 0968600496"  className='flex items-center font-[300] gap-3 text-[12px]'> <MdPhone /> +251968600496 </Link>
+                <Link to="https://github.com/akasaul"  className='flex items-center font-[300] gap-3 text-[12px]'> <FaGithub /> Github </Link>
            
             </div>
 

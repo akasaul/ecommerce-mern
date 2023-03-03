@@ -3,8 +3,8 @@ import {MdArrowBack, MdClose, MdDelete} from 'react-icons/md'
 
 const index = ({name, id: _id, modalOpen, setModalOpen, removeProduct }) => {
   return (
-    <section className='top-[0px] bottom-[0px] absolute bg-[#2c2929a8] left-[0px] right-[0px]'>
-        <div className='rounded-[1rem] p-4 bg-[white] max-w-[600px] mx-auto absolute top-[20px] bottom-[20px] left-[20px] right-[20px]'>
+    <section className='top-[0px] bottom-[0px] fixed bg-[#2c2929a8] left-[0px] right-[0px]'>
+        <div className='rounded-[1rem] p-4 bg-[white] max-w-[600px] mx-auto absolute top-[80px]  left-[20px] right-[20px]'>
             <p className='border-b p-4 border-secondary'>
                 <button className='h-[35px] w-[35px] hover:bg-secondary grid place-content-center hover:text-white rounded-[50%]' onClick={() => setModalOpen(false)}>
                     <MdClose />

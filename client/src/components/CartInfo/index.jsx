@@ -1,5 +1,6 @@
 import React from 'react'
 import { MdAddCircle } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 
 const index = ({total, totalWithTax, payment}) => {
   return (
@@ -28,8 +29,8 @@ const index = ({total, totalWithTax, payment}) => {
         total === 0  ?
         <></> : 
         payment ? 
-        <a href={`/cart/payment/finish`} className='bg-orange p-2 font-[500]'>Finish Payment</a> : 
-        <a href={`/cart/payment`} className='bg-orange p-2 font-[500]'>Continue to Payment</a> 
+        <Link to={`/cart/payment/finish`} className='bg-orange p-2 font-[500]'>Finish Payment</Link> : 
+        <Link to={`/cart/payment`} className='bg-orange p-2 font-[500]'>Continue to Payment</Link> 
     }
 </div>
 
