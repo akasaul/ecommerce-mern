@@ -70,7 +70,7 @@ const Product = () => {
         setModalOpen(false);
         dispatch(deleteProduct(id));
         toast.error(`Successfully Deleted ${name}`)
-        navigate('/profile/me');
+        navigate('/add-product');
     }
 
     const handleclick = ({id, name, count, price, imageUrl, category, description}) => {
