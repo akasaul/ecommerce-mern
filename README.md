@@ -28,5 +28,5 @@ https://ecommerce-mern-1v4w.vercel.app/
 
 
 ### Contact Me
-[Linkedin](https://www.linkedin.com/in/nikodimos-jemaneh-a1bb71234/) v10+ to run.
+[Linkedin](https://www.linkedin.com/in/nikodimos-jemaneh-a1bb71234/)
 
