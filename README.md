@@ -5,7 +5,7 @@
 - Add Products to Cart 🛒
 - Add Products to Favorites ❤
 - Search Products 🔍
-- filter Proudcts ⚙️
+- filter Products ⚙️
 - Post Products 🛍️
 - Edit Products ✏️
 - CRUD on products
@@ -18,7 +18,8 @@
 
 ### See live 
 ```sh
-https://ecommerce-mern-1v4w.vercel.app/
+[Mern-Ecommerce](https://ecommerce-mern-1v4w.vercel.app/)
+
 ```
 ## Technologies used
 - React
