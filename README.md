@@ -17,10 +17,8 @@
 
 
 ### See live 
-```sh
 [Mern-Ecommerce](https://ecommerce-mern-1v4w.vercel.app/)
 
-```
 ## Technologies used
 - React
 - Express
