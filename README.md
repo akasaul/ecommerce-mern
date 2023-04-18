@@ -21,10 +21,10 @@
 https://ecommerce-mern-1v4w.vercel.app/
 ```
 ## Technologies used
-- ![React](https://icon.icepanel.io/Technology/svg/React.svg)
-- ![Express](https://icon.icepanel.io/Technology/png-shadow-512/Express.png)
-- ![Redux](https://icon.icepanel.io/Technology/svg/Redux.svg)
-- ![MongoDB](https://icon.icepanel.io/Technology/svg/MongoDB.svg)
+- React
+- Express
+- Redux
+- Mongodb
 
 
 ### Contact Me
